@@ -1,0 +1,2122 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    BREAK
+    COMMENT
+    CONTINUE
+    DECIMAL
+    FALSE
+    LBRACK
+    MATCH
+    MOD
+    NOT
+    RBRACK
+    RETURN
+    SELF
+    SPACE
+    TAB
+    TRUE
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> FN MAIN LPAREN RPAREN compoundStmt
+Rule 2     compoundStmt -> LBRACE tablePush Stmt moreStmt tablePop RBRACE
+Rule 3     compoundStmt -> LBRACE tablePush Decl moreStmt tablePop RBRACE
+Rule 4     moreStmt -> Stmt moreStmt
+Rule 5     moreStmt -> Decl moreStmt
+Rule 6     moreStmt -> empty
+Rule 7     Decl -> LET VarList
+Rule 8     Decl -> LET AssignExpr
+Rule 9     VarList -> VarList COMMA ID
+Rule 10    VarList -> ID SEMICOLON
+Rule 11    AssignExpr -> ID EQUALS expression COMMA AssignExpr
+Rule 12    AssignExpr -> ID EQUALS expression SEMICOLON
+Rule 13    Stmt -> print_text SEMICOLON
+Rule 14    Stmt -> expression SEMICOLON
+Rule 15    Stmt -> AssignExpr
+Rule 16    Stmt -> if
+Rule 17    Stmt -> if_else
+Rule 18    Stmt -> loop
+Rule 19    print_text -> PRINTMAC LPAREN text RPAREN
+Rule 20    print_text -> PRINTLNMAC LPAREN text RPAREN
+Rule 21    text -> STRINGZ
+Rule 22    if_else -> IF setScopeNameIf condition compoundStmt generateGoto ELSE setScopeNameElse putLabelResult compoundStmt putLabelArg
+Rule 23    if -> IF setScopeNameIf condition compoundStmt putLabelResult
+Rule 24    loop -> WHILE setScopeNameWhile condition compoundStmt generateGotoLoop putLabelResult
+Rule 25    loop -> LOOP setScopeNameLoop compoundStmt generateGotoLoop putLabelResult
+Rule 26    loop -> FOR setScopeNameFor ID IN ellipsis compoundStmt putLabelResult loopEnd
+Rule 27    ellipsis -> term DOTDOT term
+Rule 28    expression -> expression PLUS term
+Rule 29    expression -> expression MINUS term
+Rule 30    term -> term TIMES factor
+Rule 31    term -> term DIVIDE factor
+Rule 32    condition -> term EQUALSEQUALS term
+Rule 33    condition -> term NOTEQUALS term
+Rule 34    condition -> term GTHANEQU term
+Rule 35    condition -> term LTHANEQU term
+Rule 36    condition -> term GTHAN term
+Rule 37    condition -> term LTHAN term
+Rule 38    expression -> term
+Rule 39    term -> factor
+Rule 40    factor -> NUMBER
+Rule 41    factor -> ID
+Rule 42    factor -> LPAREN expression RPAREN
+Rule 43    putLabelResult -> empty
+Rule 44    putLabelArg -> empty
+Rule 45    generateGoto -> empty
+Rule 46    generateGotoLoop -> empty
+Rule 47    setScopeNameIf -> empty
+Rule 48    setScopeNameElse -> empty
+Rule 49    setScopeNameWhile -> empty
+Rule 50    setScopeNameLoop -> empty
+Rule 51    setScopeNameFor -> empty
+Rule 52    loopEnd -> empty
+Rule 53    tablePush -> empty
+Rule 54    tablePop -> empty
+Rule 55    empty -> <empty>
+
+Terminals, with rules where they appear
+
+BREAK                : 
+COMMA                : 9 11
+COMMENT              : 
+CONTINUE             : 
+DECIMAL              : 
+DIVIDE               : 31
+DOTDOT               : 27
+ELSE                 : 22
+EQUALS               : 11 12
+EQUALSEQUALS         : 32
+FALSE                : 
+FN                   : 1
+FOR                  : 26
+GTHAN                : 36
+GTHANEQU             : 34
+ID                   : 9 10 11 12 26 41
+IF                   : 22 23
+IN                   : 26
+LBRACE               : 2 3
+LBRACK               : 
+LET                  : 7 8
+LOOP                 : 25
+LPAREN               : 1 19 20 42
+LTHAN                : 37
+LTHANEQU             : 35
+MAIN                 : 1
+MATCH                : 
+MINUS                : 29
+MOD                  : 
+NOT                  : 
+NOTEQUALS            : 33
+NUMBER               : 40
+PLUS                 : 28
+PRINTLNMAC           : 20
+PRINTMAC             : 19
+RBRACE               : 2 3
+RBRACK               : 
+RETURN               : 
+RPAREN               : 1 19 20 42
+SELF                 : 
+SEMICOLON            : 10 12 13 14
+SPACE                : 
+STRINGZ              : 21
+TAB                  : 
+TIMES                : 30
+TRUE                 : 
+WHILE                : 24
+error                : 
+
+Nonterminals, with rules where they appear
+
+AssignExpr           : 8 11 15
+Decl                 : 3 5
+Stmt                 : 2 4
+VarList              : 7 9
+compoundStmt         : 1 22 22 23 24 25 26
+condition            : 22 23 24
+ellipsis             : 26
+empty                : 6 43 44 45 46 47 48 49 50 51 52 53 54
+expression           : 11 12 14 28 29 42
+factor               : 30 31 39
+generateGoto         : 22
+generateGotoLoop     : 24 25
+if                   : 16
+if_else              : 17
+loop                 : 18
+loopEnd              : 26
+moreStmt             : 2 3 4 5
+print_text           : 13
+program              : 0
+putLabelArg          : 22
+putLabelResult       : 22 23 24 25 26
+setScopeNameElse     : 22
+setScopeNameFor      : 26
+setScopeNameIf       : 22 23
+setScopeNameLoop     : 25
+setScopeNameWhile    : 24
+tablePop             : 2 3
+tablePush            : 2 3
+term                 : 27 27 28 29 30 31 32 32 33 33 34 34 35 35 36 36 37 37 38
+text                 : 19 20
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . FN MAIN LPAREN RPAREN compoundStmt
+
+    FN              shift and go to state 2
+
+    program                        shift and go to state 1
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> FN . MAIN LPAREN RPAREN compoundStmt
+
+    MAIN            shift and go to state 3
+
+
+state 3
+
+    (1) program -> FN MAIN . LPAREN RPAREN compoundStmt
+
+    LPAREN          shift and go to state 4
+
+
+state 4
+
+    (1) program -> FN MAIN LPAREN . RPAREN compoundStmt
+
+    RPAREN          shift and go to state 5
+
+
+state 5
+
+    (1) program -> FN MAIN LPAREN RPAREN . compoundStmt
+    (2) compoundStmt -> . LBRACE tablePush Stmt moreStmt tablePop RBRACE
+    (3) compoundStmt -> . LBRACE tablePush Decl moreStmt tablePop RBRACE
+
+    LBRACE          shift and go to state 7
+
+    compoundStmt                   shift and go to state 6
+
+state 6
+
+    (1) program -> FN MAIN LPAREN RPAREN compoundStmt .
+
+    $end            reduce using rule 1 (program -> FN MAIN LPAREN RPAREN compoundStmt .)
+
+
+state 7
+
+    (2) compoundStmt -> LBRACE . tablePush Stmt moreStmt tablePop RBRACE
+    (3) compoundStmt -> LBRACE . tablePush Decl moreStmt tablePop RBRACE
+    (53) tablePush -> . empty
+    (55) empty -> .
+
+    LET             reduce using rule 55 (empty -> .)
+    PRINTMAC        reduce using rule 55 (empty -> .)
+    PRINTLNMAC      reduce using rule 55 (empty -> .)
+    ID              reduce using rule 55 (empty -> .)
+    IF              reduce using rule 55 (empty -> .)
+    WHILE           reduce using rule 55 (empty -> .)
+    LOOP            reduce using rule 55 (empty -> .)
+    FOR             reduce using rule 55 (empty -> .)
+    NUMBER          reduce using rule 55 (empty -> .)
+    LPAREN          reduce using rule 55 (empty -> .)
+
+    tablePush                      shift and go to state 8
+    empty                          shift and go to state 9
+
+state 8
+
+    (2) compoundStmt -> LBRACE tablePush . Stmt moreStmt tablePop RBRACE
+    (3) compoundStmt -> LBRACE tablePush . Decl moreStmt tablePop RBRACE
+    (13) Stmt -> . print_text SEMICOLON
+    (14) Stmt -> . expression SEMICOLON
+    (15) Stmt -> . AssignExpr
+    (16) Stmt -> . if
+    (17) Stmt -> . if_else
+    (18) Stmt -> . loop
+    (7) Decl -> . LET VarList
+    (8) Decl -> . LET AssignExpr
+    (19) print_text -> . PRINTMAC LPAREN text RPAREN
+    (20) print_text -> . PRINTLNMAC LPAREN text RPAREN
+    (28) expression -> . expression PLUS term
+    (29) expression -> . expression MINUS term
+    (38) expression -> . term
+    (11) AssignExpr -> . ID EQUALS expression COMMA AssignExpr
+    (12) AssignExpr -> . ID EQUALS expression SEMICOLON
+    (23) if -> . IF setScopeNameIf condition compoundStmt putLabelResult
+    (22) if_else -> . IF setScopeNameIf condition compoundStmt generateGoto ELSE setScopeNameElse putLabelResult compoundStmt putLabelArg
+    (24) loop -> . WHILE setScopeNameWhile condition compoundStmt generateGotoLoop putLabelResult
+    (25) loop -> . LOOP setScopeNameLoop compoundStmt generateGotoLoop putLabelResult
+    (26) loop -> . FOR setScopeNameFor ID IN ellipsis compoundStmt putLabelResult loopEnd
+    (30) term -> . term TIMES factor
+    (31) term -> . term DIVIDE factor
+    (39) term -> . factor
+    (40) factor -> . NUMBER
+    (41) factor -> . ID
+    (42) factor -> . LPAREN expression RPAREN
+
+    LET             shift and go to state 18
+    PRINTMAC        shift and go to state 19
+    PRINTLNMAC      shift and go to state 21
+    ID              shift and go to state 23
+    IF              shift and go to state 24
+    WHILE           shift and go to state 25
+    LOOP            shift and go to state 26
+    FOR             shift and go to state 27
+    NUMBER          shift and go to state 29
+    LPAREN          shift and go to state 20
+
+    Stmt                           shift and go to state 10
+    Decl                           shift and go to state 11
+    print_text                     shift and go to state 12
+    expression                     shift and go to state 13
+    AssignExpr                     shift and go to state 14
+    if                             shift and go to state 15
+    if_else                        shift and go to state 16
+    loop                           shift and go to state 17
+    term                           shift and go to state 22
+    factor                         shift and go to state 28
+
+state 9
+
+    (53) tablePush -> empty .
+
+    LET             reduce using rule 53 (tablePush -> empty .)
+    PRINTMAC        reduce using rule 53 (tablePush -> empty .)
+    PRINTLNMAC      reduce using rule 53 (tablePush -> empty .)
+    ID              reduce using rule 53 (tablePush -> empty .)
+    IF              reduce using rule 53 (tablePush -> empty .)
+    WHILE           reduce using rule 53 (tablePush -> empty .)
+    LOOP            reduce using rule 53 (tablePush -> empty .)
+    FOR             reduce using rule 53 (tablePush -> empty .)
+    NUMBER          reduce using rule 53 (tablePush -> empty .)
+    LPAREN          reduce using rule 53 (tablePush -> empty .)
+
+
+state 10
+
+    (2) compoundStmt -> LBRACE tablePush Stmt . moreStmt tablePop RBRACE
+    (4) moreStmt -> . Stmt moreStmt
+    (5) moreStmt -> . Decl moreStmt
+    (6) moreStmt -> . empty
+    (13) Stmt -> . print_text SEMICOLON
+    (14) Stmt -> . expression SEMICOLON
+    (15) Stmt -> . AssignExpr
+    (16) Stmt -> . if
+    (17) Stmt -> . if_else
+    (18) Stmt -> . loop
+    (7) Decl -> . LET VarList
+    (8) Decl -> . LET AssignExpr
+    (55) empty -> .
+    (19) print_text -> . PRINTMAC LPAREN text RPAREN
+    (20) print_text -> . PRINTLNMAC LPAREN text RPAREN
+    (28) expression -> . expression PLUS term
+    (29) expression -> . expression MINUS term
+    (38) expression -> . term
+    (11) AssignExpr -> . ID EQUALS expression COMMA AssignExpr
+    (12) AssignExpr -> . ID EQUALS expression SEMICOLON
+    (23) if -> . IF setScopeNameIf condition compoundStmt putLabelResult
+    (22) if_else -> . IF setScopeNameIf condition compoundStmt generateGoto ELSE setScopeNameElse putLabelResult compoundStmt putLabelArg
+    (24) loop -> . WHILE setScopeNameWhile condition compoundStmt generateGotoLoop putLabelResult
+    (25) loop -> . LOOP setScopeNameLoop compoundStmt generateGotoLoop putLabelResult
+    (26) loop -> . FOR setScopeNameFor ID IN ellipsis compoundStmt putLabelResult loopEnd
+    (30) term -> . term TIMES factor
+    (31) term -> . term DIVIDE factor
+    (39) term -> . factor
+    (40) factor -> . NUMBER
+    (41) factor -> . ID
+    (42) factor -> . LPAREN expression RPAREN
+
+    LET             shift and go to state 18
+    RBRACE          reduce using rule 55 (empty -> .)
+    PRINTMAC        shift and go to state 19
+    PRINTLNMAC      shift and go to state 21
+    ID              shift and go to state 23
+    IF              shift and go to state 24
+    WHILE           shift and go to state 25
+    LOOP            shift and go to state 26
+    FOR             shift and go to state 27
+    NUMBER          shift and go to state 29
+    LPAREN          shift and go to state 20
+
+    Stmt                           shift and go to state 30
+    moreStmt                       shift and go to state 31
+    Decl                           shift and go to state 32
+    empty                          shift and go to state 33
+    print_text                     shift and go to state 12
+    expression                     shift and go to state 13
+    AssignExpr                     shift and go to state 14
+    if                             shift and go to state 15
+    if_else                        shift and go to state 16
+    loop                           shift and go to state 17
+    term                           shift and go to state 22
+    factor                         shift and go to state 28
+
+state 11
+
+    (3) compoundStmt -> LBRACE tablePush Decl . moreStmt tablePop RBRACE
+    (4) moreStmt -> . Stmt moreStmt
+    (5) moreStmt -> . Decl moreStmt
+    (6) moreStmt -> . empty
+    (13) Stmt -> . print_text SEMICOLON
+    (14) Stmt -> . expression SEMICOLON
+    (15) Stmt -> . AssignExpr
+    (16) Stmt -> . if
+    (17) Stmt -> . if_else
+    (18) Stmt -> . loop
+    (7) Decl -> . LET VarList
+    (8) Decl -> . LET AssignExpr
+    (55) empty -> .
+    (19) print_text -> . PRINTMAC LPAREN text RPAREN
+    (20) print_text -> . PRINTLNMAC LPAREN text RPAREN
+    (28) expression -> . expression PLUS term
+    (29) expression -> . expression MINUS term
+    (38) expression -> . term
+    (11) AssignExpr -> . ID EQUALS expression COMMA AssignExpr
+    (12) AssignExpr -> . ID EQUALS expression SEMICOLON
+    (23) if -> . IF setScopeNameIf condition compoundStmt putLabelResult
+    (22) if_else -> . IF setScopeNameIf condition compoundStmt generateGoto ELSE setScopeNameElse putLabelResult compoundStmt putLabelArg
+    (24) loop -> . WHILE setScopeNameWhile condition compoundStmt generateGotoLoop putLabelResult
+    (25) loop -> . LOOP setScopeNameLoop compoundStmt generateGotoLoop putLabelResult
+    (26) loop -> . FOR setScopeNameFor ID IN ellipsis compoundStmt putLabelResult loopEnd
+    (30) term -> . term TIMES factor
+    (31) term -> . term DIVIDE factor
+    (39) term -> . factor
+    (40) factor -> . NUMBER
+    (41) factor -> . ID
+    (42) factor -> . LPAREN expression RPAREN
+
+    LET             shift and go to state 18
+    RBRACE          reduce using rule 55 (empty -> .)
+    PRINTMAC        shift and go to state 19
+    PRINTLNMAC      shift and go to state 21
+    ID              shift and go to state 23
+    IF              shift and go to state 24
+    WHILE           shift and go to state 25
+    LOOP            shift and go to state 26
+    FOR             shift and go to state 27
+    NUMBER          shift and go to state 29
+    LPAREN          shift and go to state 20
+
+    Decl                           shift and go to state 32
+    moreStmt                       shift and go to state 34
+    Stmt                           shift and go to state 30
+    empty                          shift and go to state 33
+    print_text                     shift and go to state 12
+    expression                     shift and go to state 13
+    AssignExpr                     shift and go to state 14
+    if                             shift and go to state 15
+    if_else                        shift and go to state 16
+    loop                           shift and go to state 17
+    term                           shift and go to state 22
+    factor                         shift and go to state 28
+
+state 12
+
+    (13) Stmt -> print_text . SEMICOLON
+
+    SEMICOLON       shift and go to state 35
+
+
+state 13
+
+    (14) Stmt -> expression . SEMICOLON
+    (28) expression -> expression . PLUS term
+    (29) expression -> expression . MINUS term
+
+    SEMICOLON       shift and go to state 36
+    PLUS            shift and go to state 37
+    MINUS           shift and go to state 38
+
+
+state 14
+
+    (15) Stmt -> AssignExpr .
+
+    LET             reduce using rule 15 (Stmt -> AssignExpr .)
+    PRINTMAC        reduce using rule 15 (Stmt -> AssignExpr .)
+    PRINTLNMAC      reduce using rule 15 (Stmt -> AssignExpr .)
+    ID              reduce using rule 15 (Stmt -> AssignExpr .)
+    IF              reduce using rule 15 (Stmt -> AssignExpr .)
+    WHILE           reduce using rule 15 (Stmt -> AssignExpr .)
+    LOOP            reduce using rule 15 (Stmt -> AssignExpr .)
+    FOR             reduce using rule 15 (Stmt -> AssignExpr .)
+    NUMBER          reduce using rule 15 (Stmt -> AssignExpr .)
+    LPAREN          reduce using rule 15 (Stmt -> AssignExpr .)
+    RBRACE          reduce using rule 15 (Stmt -> AssignExpr .)
+
+
+state 15
+
+    (16) Stmt -> if .
+
+    LET             reduce using rule 16 (Stmt -> if .)
+    PRINTMAC        reduce using rule 16 (Stmt -> if .)
+    PRINTLNMAC      reduce using rule 16 (Stmt -> if .)
+    ID              reduce using rule 16 (Stmt -> if .)
+    IF              reduce using rule 16 (Stmt -> if .)
+    WHILE           reduce using rule 16 (Stmt -> if .)
+    LOOP            reduce using rule 16 (Stmt -> if .)
+    FOR             reduce using rule 16 (Stmt -> if .)
+    NUMBER          reduce using rule 16 (Stmt -> if .)
+    LPAREN          reduce using rule 16 (Stmt -> if .)
+    RBRACE          reduce using rule 16 (Stmt -> if .)
+
+
+state 16
+
+    (17) Stmt -> if_else .
+
+    LET             reduce using rule 17 (Stmt -> if_else .)
+    PRINTMAC        reduce using rule 17 (Stmt -> if_else .)
+    PRINTLNMAC      reduce using rule 17 (Stmt -> if_else .)
+    ID              reduce using rule 17 (Stmt -> if_else .)
+    IF              reduce using rule 17 (Stmt -> if_else .)
+    WHILE           reduce using rule 17 (Stmt -> if_else .)
+    LOOP            reduce using rule 17 (Stmt -> if_else .)
+    FOR             reduce using rule 17 (Stmt -> if_else .)
+    NUMBER          reduce using rule 17 (Stmt -> if_else .)
+    LPAREN          reduce using rule 17 (Stmt -> if_else .)
+    RBRACE          reduce using rule 17 (Stmt -> if_else .)
+
+
+state 17
+
+    (18) Stmt -> loop .
+
+    LET             reduce using rule 18 (Stmt -> loop .)
+    PRINTMAC        reduce using rule 18 (Stmt -> loop .)
+    PRINTLNMAC      reduce using rule 18 (Stmt -> loop .)
+    ID              reduce using rule 18 (Stmt -> loop .)
+    IF              reduce using rule 18 (Stmt -> loop .)
+    WHILE           reduce using rule 18 (Stmt -> loop .)
+    LOOP            reduce using rule 18 (Stmt -> loop .)
+    FOR             reduce using rule 18 (Stmt -> loop .)
+    NUMBER          reduce using rule 18 (Stmt -> loop .)
+    LPAREN          reduce using rule 18 (Stmt -> loop .)
+    RBRACE          reduce using rule 18 (Stmt -> loop .)
+
+
+state 18
+
+    (7) Decl -> LET . VarList
+    (8) Decl -> LET . AssignExpr
+    (9) VarList -> . VarList COMMA ID
+    (10) VarList -> . ID SEMICOLON
+    (11) AssignExpr -> . ID EQUALS expression COMMA AssignExpr
+    (12) AssignExpr -> . ID EQUALS expression SEMICOLON
+
+    ID              shift and go to state 41
+
+    VarList                        shift and go to state 39
+    AssignExpr                     shift and go to state 40
+
+state 19
+
+    (19) print_text -> PRINTMAC . LPAREN text RPAREN
+
+    LPAREN          shift and go to state 42
+
+
+state 20
+
+    (42) factor -> LPAREN . expression RPAREN
+    (28) expression -> . expression PLUS term
+    (29) expression -> . expression MINUS term
+    (38) expression -> . term
+    (30) term -> . term TIMES factor
+    (31) term -> . term DIVIDE factor
+    (39) term -> . factor
+    (40) factor -> . NUMBER
+    (41) factor -> . ID
+    (42) factor -> . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 29
+    ID              shift and go to state 44
+    LPAREN          shift and go to state 20
+
+    expression                     shift and go to state 43
+    term                           shift and go to state 22
+    factor                         shift and go to state 28
+
+state 21
+
+    (20) print_text -> PRINTLNMAC . LPAREN text RPAREN
+
+    LPAREN          shift and go to state 45
+
+
+state 22
+
+    (38) expression -> term .
+    (30) term -> term . TIMES factor
+    (31) term -> term . DIVIDE factor
+
+    SEMICOLON       reduce using rule 38 (expression -> term .)
+    PLUS            reduce using rule 38 (expression -> term .)
+    MINUS           reduce using rule 38 (expression -> term .)
+    RPAREN          reduce using rule 38 (expression -> term .)
+    COMMA           reduce using rule 38 (expression -> term .)
+    TIMES           shift and go to state 46
+    DIVIDE          shift and go to state 47
+
+
+state 23
+
+    (11) AssignExpr -> ID . EQUALS expression COMMA AssignExpr
+    (12) AssignExpr -> ID . EQUALS expression SEMICOLON
+    (41) factor -> ID .
+
+    EQUALS          shift and go to state 48
+    TIMES           reduce using rule 41 (factor -> ID .)
+    DIVIDE          reduce using rule 41 (factor -> ID .)
+    SEMICOLON       reduce using rule 41 (factor -> ID .)
+    PLUS            reduce using rule 41 (factor -> ID .)
+    MINUS           reduce using rule 41 (factor -> ID .)
+
+
+state 24
+
+    (23) if -> IF . setScopeNameIf condition compoundStmt putLabelResult
+    (22) if_else -> IF . setScopeNameIf condition compoundStmt generateGoto ELSE setScopeNameElse putLabelResult compoundStmt putLabelArg
+    (47) setScopeNameIf -> . empty
+    (55) empty -> .
+
+    NUMBER          reduce using rule 55 (empty -> .)
+    ID              reduce using rule 55 (empty -> .)
+    LPAREN          reduce using rule 55 (empty -> .)
+
+    setScopeNameIf                 shift and go to state 49
+    empty                          shift and go to state 50
+
+state 25
+
+    (24) loop -> WHILE . setScopeNameWhile condition compoundStmt generateGotoLoop putLabelResult
+    (49) setScopeNameWhile -> . empty
+    (55) empty -> .
+
+    NUMBER          reduce using rule 55 (empty -> .)
+    ID              reduce using rule 55 (empty -> .)
+    LPAREN          reduce using rule 55 (empty -> .)
+
+    setScopeNameWhile              shift and go to state 51
+    empty                          shift and go to state 52
+
+state 26
+
+    (25) loop -> LOOP . setScopeNameLoop compoundStmt generateGotoLoop putLabelResult
+    (50) setScopeNameLoop -> . empty
+    (55) empty -> .
+
+    LBRACE          reduce using rule 55 (empty -> .)
+
+    setScopeNameLoop               shift and go to state 53
+    empty                          shift and go to state 54
+
+state 27
+
+    (26) loop -> FOR . setScopeNameFor ID IN ellipsis compoundStmt putLabelResult loopEnd
+    (51) setScopeNameFor -> . empty
+    (55) empty -> .
+
+    ID              reduce using rule 55 (empty -> .)
+
+    setScopeNameFor                shift and go to state 55
+    empty                          shift and go to state 56
+
+state 28
+
+    (39) term -> factor .
+
+    TIMES           reduce using rule 39 (term -> factor .)
+    DIVIDE          reduce using rule 39 (term -> factor .)
+    SEMICOLON       reduce using rule 39 (term -> factor .)
+    PLUS            reduce using rule 39 (term -> factor .)
+    MINUS           reduce using rule 39 (term -> factor .)
+    RPAREN          reduce using rule 39 (term -> factor .)
+    COMMA           reduce using rule 39 (term -> factor .)
+    EQUALSEQUALS    reduce using rule 39 (term -> factor .)
+    NOTEQUALS       reduce using rule 39 (term -> factor .)
+    GTHANEQU        reduce using rule 39 (term -> factor .)
+    LTHANEQU        reduce using rule 39 (term -> factor .)
+    GTHAN           reduce using rule 39 (term -> factor .)
+    LTHAN           reduce using rule 39 (term -> factor .)
+    LBRACE          reduce using rule 39 (term -> factor .)
+    DOTDOT          reduce using rule 39 (term -> factor .)
+
+
+state 29
+
+    (40) factor -> NUMBER .
+
+    TIMES           reduce using rule 40 (factor -> NUMBER .)
+    DIVIDE          reduce using rule 40 (factor -> NUMBER .)
+    SEMICOLON       reduce using rule 40 (factor -> NUMBER .)
+    PLUS            reduce using rule 40 (factor -> NUMBER .)
+    MINUS           reduce using rule 40 (factor -> NUMBER .)
+    RPAREN          reduce using rule 40 (factor -> NUMBER .)
+    COMMA           reduce using rule 40 (factor -> NUMBER .)
+    EQUALSEQUALS    reduce using rule 40 (factor -> NUMBER .)
+    NOTEQUALS       reduce using rule 40 (factor -> NUMBER .)
+    GTHANEQU        reduce using rule 40 (factor -> NUMBER .)
+    LTHANEQU        reduce using rule 40 (factor -> NUMBER .)
+    GTHAN           reduce using rule 40 (factor -> NUMBER .)
+    LTHAN           reduce using rule 40 (factor -> NUMBER .)
+    LBRACE          reduce using rule 40 (factor -> NUMBER .)
+    DOTDOT          reduce using rule 40 (factor -> NUMBER .)
+
+
+state 30
+
+    (4) moreStmt -> Stmt . moreStmt
+    (4) moreStmt -> . Stmt moreStmt
+    (5) moreStmt -> . Decl moreStmt
+    (6) moreStmt -> . empty
+    (13) Stmt -> . print_text SEMICOLON
+    (14) Stmt -> . expression SEMICOLON
+    (15) Stmt -> . AssignExpr
+    (16) Stmt -> . if
+    (17) Stmt -> . if_else
+    (18) Stmt -> . loop
+    (7) Decl -> . LET VarList
+    (8) Decl -> . LET AssignExpr
+    (55) empty -> .
+    (19) print_text -> . PRINTMAC LPAREN text RPAREN
+    (20) print_text -> . PRINTLNMAC LPAREN text RPAREN
+    (28) expression -> . expression PLUS term
+    (29) expression -> . expression MINUS term
+    (38) expression -> . term
+    (11) AssignExpr -> . ID EQUALS expression COMMA AssignExpr
+    (12) AssignExpr -> . ID EQUALS expression SEMICOLON
+    (23) if -> . IF setScopeNameIf condition compoundStmt putLabelResult
+    (22) if_else -> . IF setScopeNameIf condition compoundStmt generateGoto ELSE setScopeNameElse putLabelResult compoundStmt putLabelArg
+    (24) loop -> . WHILE setScopeNameWhile condition compoundStmt generateGotoLoop putLabelResult
+    (25) loop -> . LOOP setScopeNameLoop compoundStmt generateGotoLoop putLabelResult
+    (26) loop -> . FOR setScopeNameFor ID IN ellipsis compoundStmt putLabelResult loopEnd
+    (30) term -> . term TIMES factor
+    (31) term -> . term DIVIDE factor
+    (39) term -> . factor
+    (40) factor -> . NUMBER
+    (41) factor -> . ID
+    (42) factor -> . LPAREN expression RPAREN
+
+    LET             shift and go to state 18
+    RBRACE          reduce using rule 55 (empty -> .)
+    PRINTMAC        shift and go to state 19
+    PRINTLNMAC      shift and go to state 21
+    ID              shift and go to state 23
+    IF              shift and go to state 24
+    WHILE           shift and go to state 25
+    LOOP            shift and go to state 26
+    FOR             shift and go to state 27
+    NUMBER          shift and go to state 29
+    LPAREN          shift and go to state 20
+
+    Stmt                           shift and go to state 30
+    moreStmt                       shift and go to state 57
+    Decl                           shift and go to state 32
+    empty                          shift and go to state 33
+    print_text                     shift and go to state 12
+    expression                     shift and go to state 13
+    AssignExpr                     shift and go to state 14
+    if                             shift and go to state 15
+    if_else                        shift and go to state 16
+    loop                           shift and go to state 17
+    term                           shift and go to state 22
+    factor                         shift and go to state 28
+
+state 31
+
+    (2) compoundStmt -> LBRACE tablePush Stmt moreStmt . tablePop RBRACE
+    (54) tablePop -> . empty
+    (55) empty -> .
+
+    RBRACE          reduce using rule 55 (empty -> .)
+
+    tablePop                       shift and go to state 58
+    empty                          shift and go to state 59
+
+state 32
+
+    (5) moreStmt -> Decl . moreStmt
+    (4) moreStmt -> . Stmt moreStmt
+    (5) moreStmt -> . Decl moreStmt
+    (6) moreStmt -> . empty
+    (13) Stmt -> . print_text SEMICOLON
+    (14) Stmt -> . expression SEMICOLON
+    (15) Stmt -> . AssignExpr
+    (16) Stmt -> . if
+    (17) Stmt -> . if_else
+    (18) Stmt -> . loop
+    (7) Decl -> . LET VarList
+    (8) Decl -> . LET AssignExpr
+    (55) empty -> .
+    (19) print_text -> . PRINTMAC LPAREN text RPAREN
+    (20) print_text -> . PRINTLNMAC LPAREN text RPAREN
+    (28) expression -> . expression PLUS term
+    (29) expression -> . expression MINUS term
+    (38) expression -> . term
+    (11) AssignExpr -> . ID EQUALS expression COMMA AssignExpr
+    (12) AssignExpr -> . ID EQUALS expression SEMICOLON
+    (23) if -> . IF setScopeNameIf condition compoundStmt putLabelResult
+    (22) if_else -> . IF setScopeNameIf condition compoundStmt generateGoto ELSE setScopeNameElse putLabelResult compoundStmt putLabelArg
+    (24) loop -> . WHILE setScopeNameWhile condition compoundStmt generateGotoLoop putLabelResult
+    (25) loop -> . LOOP setScopeNameLoop compoundStmt generateGotoLoop putLabelResult
+    (26) loop -> . FOR setScopeNameFor ID IN ellipsis compoundStmt putLabelResult loopEnd
+    (30) term -> . term TIMES factor
+    (31) term -> . term DIVIDE factor
+    (39) term -> . factor
+    (40) factor -> . NUMBER
+    (41) factor -> . ID
+    (42) factor -> . LPAREN expression RPAREN
+
+    LET             shift and go to state 18
+    RBRACE          reduce using rule 55 (empty -> .)
+    PRINTMAC        shift and go to state 19
+    PRINTLNMAC      shift and go to state 21
+    ID              shift and go to state 23
+    IF              shift and go to state 24
+    WHILE           shift and go to state 25
+    LOOP            shift and go to state 26
+    FOR             shift and go to state 27
+    NUMBER          shift and go to state 29
+    LPAREN          shift and go to state 20
+
+    Decl                           shift and go to state 32
+    moreStmt                       shift and go to state 60
+    Stmt                           shift and go to state 30
+    empty                          shift and go to state 33
+    print_text                     shift and go to state 12
+    expression                     shift and go to state 13
+    AssignExpr                     shift and go to state 14
+    if                             shift and go to state 15
+    if_else                        shift and go to state 16
+    loop                           shift and go to state 17
+    term                           shift and go to state 22
+    factor                         shift and go to state 28
+
+state 33
+
+    (6) moreStmt -> empty .
+
+    RBRACE          reduce using rule 6 (moreStmt -> empty .)
+
+
+state 34
+
+    (3) compoundStmt -> LBRACE tablePush Decl moreStmt . tablePop RBRACE
+    (54) tablePop -> . empty
+    (55) empty -> .
+
+    RBRACE          reduce using rule 55 (empty -> .)
+
+    tablePop                       shift and go to state 61
+    empty                          shift and go to state 59
+
+state 35
+
+    (13) Stmt -> print_text SEMICOLON .
+
+    LET             reduce using rule 13 (Stmt -> print_text SEMICOLON .)
+    PRINTMAC        reduce using rule 13 (Stmt -> print_text SEMICOLON .)
+    PRINTLNMAC      reduce using rule 13 (Stmt -> print_text SEMICOLON .)
+    ID              reduce using rule 13 (Stmt -> print_text SEMICOLON .)
+    IF              reduce using rule 13 (Stmt -> print_text SEMICOLON .)
+    WHILE           reduce using rule 13 (Stmt -> print_text SEMICOLON .)
+    LOOP            reduce using rule 13 (Stmt -> print_text SEMICOLON .)
+    FOR             reduce using rule 13 (Stmt -> print_text SEMICOLON .)
+    NUMBER          reduce using rule 13 (Stmt -> print_text SEMICOLON .)
+    LPAREN          reduce using rule 13 (Stmt -> print_text SEMICOLON .)
+    RBRACE          reduce using rule 13 (Stmt -> print_text SEMICOLON .)
+
+
+state 36
+
+    (14) Stmt -> expression SEMICOLON .
+
+    LET             reduce using rule 14 (Stmt -> expression SEMICOLON .)
+    PRINTMAC        reduce using rule 14 (Stmt -> expression SEMICOLON .)
+    PRINTLNMAC      reduce using rule 14 (Stmt -> expression SEMICOLON .)
+    ID              reduce using rule 14 (Stmt -> expression SEMICOLON .)
+    IF              reduce using rule 14 (Stmt -> expression SEMICOLON .)
+    WHILE           reduce using rule 14 (Stmt -> expression SEMICOLON .)
+    LOOP            reduce using rule 14 (Stmt -> expression SEMICOLON .)
+    FOR             reduce using rule 14 (Stmt -> expression SEMICOLON .)
+    NUMBER          reduce using rule 14 (Stmt -> expression SEMICOLON .)
+    LPAREN          reduce using rule 14 (Stmt -> expression SEMICOLON .)
+    RBRACE          reduce using rule 14 (Stmt -> expression SEMICOLON .)
+
+
+state 37
+
+    (28) expression -> expression PLUS . term
+    (30) term -> . term TIMES factor
+    (31) term -> . term DIVIDE factor
+    (39) term -> . factor
+    (40) factor -> . NUMBER
+    (41) factor -> . ID
+    (42) factor -> . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 29
+    ID              shift and go to state 44
+    LPAREN          shift and go to state 20
+
+    term                           shift and go to state 62
+    factor                         shift and go to state 28
+
+state 38
+
+    (29) expression -> expression MINUS . term
+    (30) term -> . term TIMES factor
+    (31) term -> . term DIVIDE factor
+    (39) term -> . factor
+    (40) factor -> . NUMBER
+    (41) factor -> . ID
+    (42) factor -> . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 29
+    ID              shift and go to state 44
+    LPAREN          shift and go to state 20
+
+    term                           shift and go to state 63
+    factor                         shift and go to state 28
+
+state 39
+
+    (7) Decl -> LET VarList .
+    (9) VarList -> VarList . COMMA ID
+
+    LET             reduce using rule 7 (Decl -> LET VarList .)
+    PRINTMAC        reduce using rule 7 (Decl -> LET VarList .)
+    PRINTLNMAC      reduce using rule 7 (Decl -> LET VarList .)
+    ID              reduce using rule 7 (Decl -> LET VarList .)
+    IF              reduce using rule 7 (Decl -> LET VarList .)
+    WHILE           reduce using rule 7 (Decl -> LET VarList .)
+    LOOP            reduce using rule 7 (Decl -> LET VarList .)
+    FOR             reduce using rule 7 (Decl -> LET VarList .)
+    NUMBER          reduce using rule 7 (Decl -> LET VarList .)
+    LPAREN          reduce using rule 7 (Decl -> LET VarList .)
+    RBRACE          reduce using rule 7 (Decl -> LET VarList .)
+    COMMA           shift and go to state 64
+
+
+state 40
+
+    (8) Decl -> LET AssignExpr .
+
+    LET             reduce using rule 8 (Decl -> LET AssignExpr .)
+    PRINTMAC        reduce using rule 8 (Decl -> LET AssignExpr .)
+    PRINTLNMAC      reduce using rule 8 (Decl -> LET AssignExpr .)
+    ID              reduce using rule 8 (Decl -> LET AssignExpr .)
+    IF              reduce using rule 8 (Decl -> LET AssignExpr .)
+    WHILE           reduce using rule 8 (Decl -> LET AssignExpr .)
+    LOOP            reduce using rule 8 (Decl -> LET AssignExpr .)
+    FOR             reduce using rule 8 (Decl -> LET AssignExpr .)
+    NUMBER          reduce using rule 8 (Decl -> LET AssignExpr .)
+    LPAREN          reduce using rule 8 (Decl -> LET AssignExpr .)
+    RBRACE          reduce using rule 8 (Decl -> LET AssignExpr .)
+
+
+state 41
+
+    (10) VarList -> ID . SEMICOLON
+    (11) AssignExpr -> ID . EQUALS expression COMMA AssignExpr
+    (12) AssignExpr -> ID . EQUALS expression SEMICOLON
+
+    SEMICOLON       shift and go to state 65
+    EQUALS          shift and go to state 48
+
+
+state 42
+
+    (19) print_text -> PRINTMAC LPAREN . text RPAREN
+    (21) text -> . STRINGZ
+
+    STRINGZ         shift and go to state 67
+
+    text                           shift and go to state 66
+
+state 43
+
+    (42) factor -> LPAREN expression . RPAREN
+    (28) expression -> expression . PLUS term
+    (29) expression -> expression . MINUS term
+
+    RPAREN          shift and go to state 68
+    PLUS            shift and go to state 37
+    MINUS           shift and go to state 38
+
+
+state 44
+
+    (41) factor -> ID .
+
+    TIMES           reduce using rule 41 (factor -> ID .)
+    DIVIDE          reduce using rule 41 (factor -> ID .)
+    RPAREN          reduce using rule 41 (factor -> ID .)
+    PLUS            reduce using rule 41 (factor -> ID .)
+    MINUS           reduce using rule 41 (factor -> ID .)
+    SEMICOLON       reduce using rule 41 (factor -> ID .)
+    COMMA           reduce using rule 41 (factor -> ID .)
+    EQUALSEQUALS    reduce using rule 41 (factor -> ID .)
+    NOTEQUALS       reduce using rule 41 (factor -> ID .)
+    GTHANEQU        reduce using rule 41 (factor -> ID .)
+    LTHANEQU        reduce using rule 41 (factor -> ID .)
+    GTHAN           reduce using rule 41 (factor -> ID .)
+    LTHAN           reduce using rule 41 (factor -> ID .)
+    LBRACE          reduce using rule 41 (factor -> ID .)
+    DOTDOT          reduce using rule 41 (factor -> ID .)
+
+
+state 45
+
+    (20) print_text -> PRINTLNMAC LPAREN . text RPAREN
+    (21) text -> . STRINGZ
+
+    STRINGZ         shift and go to state 67
+
+    text                           shift and go to state 69
+
+state 46
+
+    (30) term -> term TIMES . factor
+    (40) factor -> . NUMBER
+    (41) factor -> . ID
+    (42) factor -> . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 29
+    ID              shift and go to state 44
+    LPAREN          shift and go to state 20
+
+    factor                         shift and go to state 70
+
+state 47
+
+    (31) term -> term DIVIDE . factor
+    (40) factor -> . NUMBER
+    (41) factor -> . ID
+    (42) factor -> . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 29
+    ID              shift and go to state 44
+    LPAREN          shift and go to state 20
+
+    factor                         shift and go to state 71
+
+state 48
+
+    (11) AssignExpr -> ID EQUALS . expression COMMA AssignExpr
+    (12) AssignExpr -> ID EQUALS . expression SEMICOLON
+    (28) expression -> . expression PLUS term
+    (29) expression -> . expression MINUS term
+    (38) expression -> . term
+    (30) term -> . term TIMES factor
+    (31) term -> . term DIVIDE factor
+    (39) term -> . factor
+    (40) factor -> . NUMBER
+    (41) factor -> . ID
+    (42) factor -> . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 29
+    ID              shift and go to state 44
+    LPAREN          shift and go to state 20
+
+    expression                     shift and go to state 72
+    term                           shift and go to state 22
+    factor                         shift and go to state 28
+
+state 49
+
+    (23) if -> IF setScopeNameIf . condition compoundStmt putLabelResult
+    (22) if_else -> IF setScopeNameIf . condition compoundStmt generateGoto ELSE setScopeNameElse putLabelResult compoundStmt putLabelArg
+    (32) condition -> . term EQUALSEQUALS term
+    (33) condition -> . term NOTEQUALS term
+    (34) condition -> . term GTHANEQU term
+    (35) condition -> . term LTHANEQU term
+    (36) condition -> . term GTHAN term
+    (37) condition -> . term LTHAN term
+    (30) term -> . term TIMES factor
+    (31) term -> . term DIVIDE factor
+    (39) term -> . factor
+    (40) factor -> . NUMBER
+    (41) factor -> . ID
+    (42) factor -> . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 29
+    ID              shift and go to state 44
+    LPAREN          shift and go to state 20
+
+    condition                      shift and go to state 73
+    term                           shift and go to state 74
+    factor                         shift and go to state 28
+
+state 50
+
+    (47) setScopeNameIf -> empty .
+
+    NUMBER          reduce using rule 47 (setScopeNameIf -> empty .)
+    ID              reduce using rule 47 (setScopeNameIf -> empty .)
+    LPAREN          reduce using rule 47 (setScopeNameIf -> empty .)
+
+
+state 51
+
+    (24) loop -> WHILE setScopeNameWhile . condition compoundStmt generateGotoLoop putLabelResult
+    (32) condition -> . term EQUALSEQUALS term
+    (33) condition -> . term NOTEQUALS term
+    (34) condition -> . term GTHANEQU term
+    (35) condition -> . term LTHANEQU term
+    (36) condition -> . term GTHAN term
+    (37) condition -> . term LTHAN term
+    (30) term -> . term TIMES factor
+    (31) term -> . term DIVIDE factor
+    (39) term -> . factor
+    (40) factor -> . NUMBER
+    (41) factor -> . ID
+    (42) factor -> . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 29
+    ID              shift and go to state 44
+    LPAREN          shift and go to state 20
+
+    condition                      shift and go to state 75
+    term                           shift and go to state 74
+    factor                         shift and go to state 28
+
+state 52
+
+    (49) setScopeNameWhile -> empty .
+
+    NUMBER          reduce using rule 49 (setScopeNameWhile -> empty .)
+    ID              reduce using rule 49 (setScopeNameWhile -> empty .)
+    LPAREN          reduce using rule 49 (setScopeNameWhile -> empty .)
+
+
+state 53
+
+    (25) loop -> LOOP setScopeNameLoop . compoundStmt generateGotoLoop putLabelResult
+    (2) compoundStmt -> . LBRACE tablePush Stmt moreStmt tablePop RBRACE
+    (3) compoundStmt -> . LBRACE tablePush Decl moreStmt tablePop RBRACE
+
+    LBRACE          shift and go to state 7
+
+    compoundStmt                   shift and go to state 76
+
+state 54
+
+    (50) setScopeNameLoop -> empty .
+
+    LBRACE          reduce using rule 50 (setScopeNameLoop -> empty .)
+
+
+state 55
+
+    (26) loop -> FOR setScopeNameFor . ID IN ellipsis compoundStmt putLabelResult loopEnd
+
+    ID              shift and go to state 77
+
+
+state 56
+
+    (51) setScopeNameFor -> empty .
+
+    ID              reduce using rule 51 (setScopeNameFor -> empty .)
+
+
+state 57
+
+    (4) moreStmt -> Stmt moreStmt .
+
+    RBRACE          reduce using rule 4 (moreStmt -> Stmt moreStmt .)
+
+
+state 58
+
+    (2) compoundStmt -> LBRACE tablePush Stmt moreStmt tablePop . RBRACE
+
+    RBRACE          shift and go to state 78
+
+
+state 59
+
+    (54) tablePop -> empty .
+
+    RBRACE          reduce using rule 54 (tablePop -> empty .)
+
+
+state 60
+
+    (5) moreStmt -> Decl moreStmt .
+
+    RBRACE          reduce using rule 5 (moreStmt -> Decl moreStmt .)
+
+
+state 61
+
+    (3) compoundStmt -> LBRACE tablePush Decl moreStmt tablePop . RBRACE
+
+    RBRACE          shift and go to state 79
+
+
+state 62
+
+    (28) expression -> expression PLUS term .
+    (30) term -> term . TIMES factor
+    (31) term -> term . DIVIDE factor
+
+    SEMICOLON       reduce using rule 28 (expression -> expression PLUS term .)
+    PLUS            reduce using rule 28 (expression -> expression PLUS term .)
+    MINUS           reduce using rule 28 (expression -> expression PLUS term .)
+    RPAREN          reduce using rule 28 (expression -> expression PLUS term .)
+    COMMA           reduce using rule 28 (expression -> expression PLUS term .)
+    TIMES           shift and go to state 46
+    DIVIDE          shift and go to state 47
+
+
+state 63
+
+    (29) expression -> expression MINUS term .
+    (30) term -> term . TIMES factor
+    (31) term -> term . DIVIDE factor
+
+    SEMICOLON       reduce using rule 29 (expression -> expression MINUS term .)
+    PLUS            reduce using rule 29 (expression -> expression MINUS term .)
+    MINUS           reduce using rule 29 (expression -> expression MINUS term .)
+    RPAREN          reduce using rule 29 (expression -> expression MINUS term .)
+    COMMA           reduce using rule 29 (expression -> expression MINUS term .)
+    TIMES           shift and go to state 46
+    DIVIDE          shift and go to state 47
+
+
+state 64
+
+    (9) VarList -> VarList COMMA . ID
+
+    ID              shift and go to state 80
+
+
+state 65
+
+    (10) VarList -> ID SEMICOLON .
+
+    COMMA           reduce using rule 10 (VarList -> ID SEMICOLON .)
+    LET             reduce using rule 10 (VarList -> ID SEMICOLON .)
+    PRINTMAC        reduce using rule 10 (VarList -> ID SEMICOLON .)
+    PRINTLNMAC      reduce using rule 10 (VarList -> ID SEMICOLON .)
+    ID              reduce using rule 10 (VarList -> ID SEMICOLON .)
+    IF              reduce using rule 10 (VarList -> ID SEMICOLON .)
+    WHILE           reduce using rule 10 (VarList -> ID SEMICOLON .)
+    LOOP            reduce using rule 10 (VarList -> ID SEMICOLON .)
+    FOR             reduce using rule 10 (VarList -> ID SEMICOLON .)
+    NUMBER          reduce using rule 10 (VarList -> ID SEMICOLON .)
+    LPAREN          reduce using rule 10 (VarList -> ID SEMICOLON .)
+    RBRACE          reduce using rule 10 (VarList -> ID SEMICOLON .)
+
+
+state 66
+
+    (19) print_text -> PRINTMAC LPAREN text . RPAREN
+
+    RPAREN          shift and go to state 81
+
+
+state 67
+
+    (21) text -> STRINGZ .
+
+    RPAREN          reduce using rule 21 (text -> STRINGZ .)
+
+
+state 68
+
+    (42) factor -> LPAREN expression RPAREN .
+
+    TIMES           reduce using rule 42 (factor -> LPAREN expression RPAREN .)
+    DIVIDE          reduce using rule 42 (factor -> LPAREN expression RPAREN .)
+    SEMICOLON       reduce using rule 42 (factor -> LPAREN expression RPAREN .)
+    PLUS            reduce using rule 42 (factor -> LPAREN expression RPAREN .)
+    MINUS           reduce using rule 42 (factor -> LPAREN expression RPAREN .)
+    RPAREN          reduce using rule 42 (factor -> LPAREN expression RPAREN .)
+    COMMA           reduce using rule 42 (factor -> LPAREN expression RPAREN .)
+    EQUALSEQUALS    reduce using rule 42 (factor -> LPAREN expression RPAREN .)
+    NOTEQUALS       reduce using rule 42 (factor -> LPAREN expression RPAREN .)
+    GTHANEQU        reduce using rule 42 (factor -> LPAREN expression RPAREN .)
+    LTHANEQU        reduce using rule 42 (factor -> LPAREN expression RPAREN .)
+    GTHAN           reduce using rule 42 (factor -> LPAREN expression RPAREN .)
+    LTHAN           reduce using rule 42 (factor -> LPAREN expression RPAREN .)
+    LBRACE          reduce using rule 42 (factor -> LPAREN expression RPAREN .)
+    DOTDOT          reduce using rule 42 (factor -> LPAREN expression RPAREN .)
+
+
+state 69
+
+    (20) print_text -> PRINTLNMAC LPAREN text . RPAREN
+
+    RPAREN          shift and go to state 82
+
+
+state 70
+
+    (30) term -> term TIMES factor .
+
+    TIMES           reduce using rule 30 (term -> term TIMES factor .)
+    DIVIDE          reduce using rule 30 (term -> term TIMES factor .)
+    SEMICOLON       reduce using rule 30 (term -> term TIMES factor .)
+    PLUS            reduce using rule 30 (term -> term TIMES factor .)
+    MINUS           reduce using rule 30 (term -> term TIMES factor .)
+    RPAREN          reduce using rule 30 (term -> term TIMES factor .)
+    COMMA           reduce using rule 30 (term -> term TIMES factor .)
+    EQUALSEQUALS    reduce using rule 30 (term -> term TIMES factor .)
+    NOTEQUALS       reduce using rule 30 (term -> term TIMES factor .)
+    GTHANEQU        reduce using rule 30 (term -> term TIMES factor .)
+    LTHANEQU        reduce using rule 30 (term -> term TIMES factor .)
+    GTHAN           reduce using rule 30 (term -> term TIMES factor .)
+    LTHAN           reduce using rule 30 (term -> term TIMES factor .)
+    LBRACE          reduce using rule 30 (term -> term TIMES factor .)
+    DOTDOT          reduce using rule 30 (term -> term TIMES factor .)
+
+
+state 71
+
+    (31) term -> term DIVIDE factor .
+
+    TIMES           reduce using rule 31 (term -> term DIVIDE factor .)
+    DIVIDE          reduce using rule 31 (term -> term DIVIDE factor .)
+    SEMICOLON       reduce using rule 31 (term -> term DIVIDE factor .)
+    PLUS            reduce using rule 31 (term -> term DIVIDE factor .)
+    MINUS           reduce using rule 31 (term -> term DIVIDE factor .)
+    RPAREN          reduce using rule 31 (term -> term DIVIDE factor .)
+    COMMA           reduce using rule 31 (term -> term DIVIDE factor .)
+    EQUALSEQUALS    reduce using rule 31 (term -> term DIVIDE factor .)
+    NOTEQUALS       reduce using rule 31 (term -> term DIVIDE factor .)
+    GTHANEQU        reduce using rule 31 (term -> term DIVIDE factor .)
+    LTHANEQU        reduce using rule 31 (term -> term DIVIDE factor .)
+    GTHAN           reduce using rule 31 (term -> term DIVIDE factor .)
+    LTHAN           reduce using rule 31 (term -> term DIVIDE factor .)
+    LBRACE          reduce using rule 31 (term -> term DIVIDE factor .)
+    DOTDOT          reduce using rule 31 (term -> term DIVIDE factor .)
+
+
+state 72
+
+    (11) AssignExpr -> ID EQUALS expression . COMMA AssignExpr
+    (12) AssignExpr -> ID EQUALS expression . SEMICOLON
+    (28) expression -> expression . PLUS term
+    (29) expression -> expression . MINUS term
+
+    COMMA           shift and go to state 83
+    SEMICOLON       shift and go to state 84
+    PLUS            shift and go to state 37
+    MINUS           shift and go to state 38
+
+
+state 73
+
+    (23) if -> IF setScopeNameIf condition . compoundStmt putLabelResult
+    (22) if_else -> IF setScopeNameIf condition . compoundStmt generateGoto ELSE setScopeNameElse putLabelResult compoundStmt putLabelArg
+    (2) compoundStmt -> . LBRACE tablePush Stmt moreStmt tablePop RBRACE
+    (3) compoundStmt -> . LBRACE tablePush Decl moreStmt tablePop RBRACE
+
+    LBRACE          shift and go to state 7
+
+    compoundStmt                   shift and go to state 85
+
+state 74
+
+    (32) condition -> term . EQUALSEQUALS term
+    (33) condition -> term . NOTEQUALS term
+    (34) condition -> term . GTHANEQU term
+    (35) condition -> term . LTHANEQU term
+    (36) condition -> term . GTHAN term
+    (37) condition -> term . LTHAN term
+    (30) term -> term . TIMES factor
+    (31) term -> term . DIVIDE factor
+
+    EQUALSEQUALS    shift and go to state 86
+    NOTEQUALS       shift and go to state 87
+    GTHANEQU        shift and go to state 88
+    LTHANEQU        shift and go to state 89
+    GTHAN           shift and go to state 90
+    LTHAN           shift and go to state 91
+    TIMES           shift and go to state 46
+    DIVIDE          shift and go to state 47
+
+
+state 75
+
+    (24) loop -> WHILE setScopeNameWhile condition . compoundStmt generateGotoLoop putLabelResult
+    (2) compoundStmt -> . LBRACE tablePush Stmt moreStmt tablePop RBRACE
+    (3) compoundStmt -> . LBRACE tablePush Decl moreStmt tablePop RBRACE
+
+    LBRACE          shift and go to state 7
+
+    compoundStmt                   shift and go to state 92
+
+state 76
+
+    (25) loop -> LOOP setScopeNameLoop compoundStmt . generateGotoLoop putLabelResult
+    (46) generateGotoLoop -> . empty
+    (55) empty -> .
+
+    LET             reduce using rule 55 (empty -> .)
+    PRINTMAC        reduce using rule 55 (empty -> .)
+    PRINTLNMAC      reduce using rule 55 (empty -> .)
+    ID              reduce using rule 55 (empty -> .)
+    IF              reduce using rule 55 (empty -> .)
+    WHILE           reduce using rule 55 (empty -> .)
+    LOOP            reduce using rule 55 (empty -> .)
+    FOR             reduce using rule 55 (empty -> .)
+    NUMBER          reduce using rule 55 (empty -> .)
+    LPAREN          reduce using rule 55 (empty -> .)
+    RBRACE          reduce using rule 55 (empty -> .)
+
+    generateGotoLoop               shift and go to state 93
+    empty                          shift and go to state 94
+
+state 77
+
+    (26) loop -> FOR setScopeNameFor ID . IN ellipsis compoundStmt putLabelResult loopEnd
+
+    IN              shift and go to state 95
+
+
+state 78
+
+    (2) compoundStmt -> LBRACE tablePush Stmt moreStmt tablePop RBRACE .
+
+    $end            reduce using rule 2 (compoundStmt -> LBRACE tablePush Stmt moreStmt tablePop RBRACE .)
+    LET             reduce using rule 2 (compoundStmt -> LBRACE tablePush Stmt moreStmt tablePop RBRACE .)
+    PRINTMAC        reduce using rule 2 (compoundStmt -> LBRACE tablePush Stmt moreStmt tablePop RBRACE .)
+    PRINTLNMAC      reduce using rule 2 (compoundStmt -> LBRACE tablePush Stmt moreStmt tablePop RBRACE .)
+    ID              reduce using rule 2 (compoundStmt -> LBRACE tablePush Stmt moreStmt tablePop RBRACE .)
+    IF              reduce using rule 2 (compoundStmt -> LBRACE tablePush Stmt moreStmt tablePop RBRACE .)
+    WHILE           reduce using rule 2 (compoundStmt -> LBRACE tablePush Stmt moreStmt tablePop RBRACE .)
+    LOOP            reduce using rule 2 (compoundStmt -> LBRACE tablePush Stmt moreStmt tablePop RBRACE .)
+    FOR             reduce using rule 2 (compoundStmt -> LBRACE tablePush Stmt moreStmt tablePop RBRACE .)
+    NUMBER          reduce using rule 2 (compoundStmt -> LBRACE tablePush Stmt moreStmt tablePop RBRACE .)
+    LPAREN          reduce using rule 2 (compoundStmt -> LBRACE tablePush Stmt moreStmt tablePop RBRACE .)
+    RBRACE          reduce using rule 2 (compoundStmt -> LBRACE tablePush Stmt moreStmt tablePop RBRACE .)
+    ELSE            reduce using rule 2 (compoundStmt -> LBRACE tablePush Stmt moreStmt tablePop RBRACE .)
+
+
+state 79
+
+    (3) compoundStmt -> LBRACE tablePush Decl moreStmt tablePop RBRACE .
+
+    $end            reduce using rule 3 (compoundStmt -> LBRACE tablePush Decl moreStmt tablePop RBRACE .)
+    LET             reduce using rule 3 (compoundStmt -> LBRACE tablePush Decl moreStmt tablePop RBRACE .)
+    PRINTMAC        reduce using rule 3 (compoundStmt -> LBRACE tablePush Decl moreStmt tablePop RBRACE .)
+    PRINTLNMAC      reduce using rule 3 (compoundStmt -> LBRACE tablePush Decl moreStmt tablePop RBRACE .)
+    ID              reduce using rule 3 (compoundStmt -> LBRACE tablePush Decl moreStmt tablePop RBRACE .)
+    IF              reduce using rule 3 (compoundStmt -> LBRACE tablePush Decl moreStmt tablePop RBRACE .)
+    WHILE           reduce using rule 3 (compoundStmt -> LBRACE tablePush Decl moreStmt tablePop RBRACE .)
+    LOOP            reduce using rule 3 (compoundStmt -> LBRACE tablePush Decl moreStmt tablePop RBRACE .)
+    FOR             reduce using rule 3 (compoundStmt -> LBRACE tablePush Decl moreStmt tablePop RBRACE .)
+    NUMBER          reduce using rule 3 (compoundStmt -> LBRACE tablePush Decl moreStmt tablePop RBRACE .)
+    LPAREN          reduce using rule 3 (compoundStmt -> LBRACE tablePush Decl moreStmt tablePop RBRACE .)
+    RBRACE          reduce using rule 3 (compoundStmt -> LBRACE tablePush Decl moreStmt tablePop RBRACE .)
+    ELSE            reduce using rule 3 (compoundStmt -> LBRACE tablePush Decl moreStmt tablePop RBRACE .)
+
+
+state 80
+
+    (9) VarList -> VarList COMMA ID .
+
+    COMMA           reduce using rule 9 (VarList -> VarList COMMA ID .)
+    LET             reduce using rule 9 (VarList -> VarList COMMA ID .)
+    PRINTMAC        reduce using rule 9 (VarList -> VarList COMMA ID .)
+    PRINTLNMAC      reduce using rule 9 (VarList -> VarList COMMA ID .)
+    ID              reduce using rule 9 (VarList -> VarList COMMA ID .)
+    IF              reduce using rule 9 (VarList -> VarList COMMA ID .)
+    WHILE           reduce using rule 9 (VarList -> VarList COMMA ID .)
+    LOOP            reduce using rule 9 (VarList -> VarList COMMA ID .)
+    FOR             reduce using rule 9 (VarList -> VarList COMMA ID .)
+    NUMBER          reduce using rule 9 (VarList -> VarList COMMA ID .)
+    LPAREN          reduce using rule 9 (VarList -> VarList COMMA ID .)
+    RBRACE          reduce using rule 9 (VarList -> VarList COMMA ID .)
+
+
+state 81
+
+    (19) print_text -> PRINTMAC LPAREN text RPAREN .
+
+    SEMICOLON       reduce using rule 19 (print_text -> PRINTMAC LPAREN text RPAREN .)
+
+
+state 82
+
+    (20) print_text -> PRINTLNMAC LPAREN text RPAREN .
+
+    SEMICOLON       reduce using rule 20 (print_text -> PRINTLNMAC LPAREN text RPAREN .)
+
+
+state 83
+
+    (11) AssignExpr -> ID EQUALS expression COMMA . AssignExpr
+    (11) AssignExpr -> . ID EQUALS expression COMMA AssignExpr
+    (12) AssignExpr -> . ID EQUALS expression SEMICOLON
+
+    ID              shift and go to state 96
+
+    AssignExpr                     shift and go to state 97
+
+state 84
+
+    (12) AssignExpr -> ID EQUALS expression SEMICOLON .
+
+    LET             reduce using rule 12 (AssignExpr -> ID EQUALS expression SEMICOLON .)
+    PRINTMAC        reduce using rule 12 (AssignExpr -> ID EQUALS expression SEMICOLON .)
+    PRINTLNMAC      reduce using rule 12 (AssignExpr -> ID EQUALS expression SEMICOLON .)
+    ID              reduce using rule 12 (AssignExpr -> ID EQUALS expression SEMICOLON .)
+    IF              reduce using rule 12 (AssignExpr -> ID EQUALS expression SEMICOLON .)
+    WHILE           reduce using rule 12 (AssignExpr -> ID EQUALS expression SEMICOLON .)
+    LOOP            reduce using rule 12 (AssignExpr -> ID EQUALS expression SEMICOLON .)
+    FOR             reduce using rule 12 (AssignExpr -> ID EQUALS expression SEMICOLON .)
+    NUMBER          reduce using rule 12 (AssignExpr -> ID EQUALS expression SEMICOLON .)
+    LPAREN          reduce using rule 12 (AssignExpr -> ID EQUALS expression SEMICOLON .)
+    RBRACE          reduce using rule 12 (AssignExpr -> ID EQUALS expression SEMICOLON .)
+
+
+state 85
+
+    (23) if -> IF setScopeNameIf condition compoundStmt . putLabelResult
+    (22) if_else -> IF setScopeNameIf condition compoundStmt . generateGoto ELSE setScopeNameElse putLabelResult compoundStmt putLabelArg
+    (43) putLabelResult -> . empty
+    (45) generateGoto -> . empty
+    (55) empty -> .
+
+    LET             reduce using rule 55 (empty -> .)
+    PRINTMAC        reduce using rule 55 (empty -> .)
+    PRINTLNMAC      reduce using rule 55 (empty -> .)
+    ID              reduce using rule 55 (empty -> .)
+    IF              reduce using rule 55 (empty -> .)
+    WHILE           reduce using rule 55 (empty -> .)
+    LOOP            reduce using rule 55 (empty -> .)
+    FOR             reduce using rule 55 (empty -> .)
+    NUMBER          reduce using rule 55 (empty -> .)
+    LPAREN          reduce using rule 55 (empty -> .)
+    RBRACE          reduce using rule 55 (empty -> .)
+    ELSE            reduce using rule 55 (empty -> .)
+
+    putLabelResult                 shift and go to state 98
+    generateGoto                   shift and go to state 99
+    empty                          shift and go to state 100
+
+state 86
+
+    (32) condition -> term EQUALSEQUALS . term
+    (30) term -> . term TIMES factor
+    (31) term -> . term DIVIDE factor
+    (39) term -> . factor
+    (40) factor -> . NUMBER
+    (41) factor -> . ID
+    (42) factor -> . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 29
+    ID              shift and go to state 44
+    LPAREN          shift and go to state 20
+
+    term                           shift and go to state 101
+    factor                         shift and go to state 28
+
+state 87
+
+    (33) condition -> term NOTEQUALS . term
+    (30) term -> . term TIMES factor
+    (31) term -> . term DIVIDE factor
+    (39) term -> . factor
+    (40) factor -> . NUMBER
+    (41) factor -> . ID
+    (42) factor -> . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 29
+    ID              shift and go to state 44
+    LPAREN          shift and go to state 20
+
+    term                           shift and go to state 102
+    factor                         shift and go to state 28
+
+state 88
+
+    (34) condition -> term GTHANEQU . term
+    (30) term -> . term TIMES factor
+    (31) term -> . term DIVIDE factor
+    (39) term -> . factor
+    (40) factor -> . NUMBER
+    (41) factor -> . ID
+    (42) factor -> . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 29
+    ID              shift and go to state 44
+    LPAREN          shift and go to state 20
+
+    term                           shift and go to state 103
+    factor                         shift and go to state 28
+
+state 89
+
+    (35) condition -> term LTHANEQU . term
+    (30) term -> . term TIMES factor
+    (31) term -> . term DIVIDE factor
+    (39) term -> . factor
+    (40) factor -> . NUMBER
+    (41) factor -> . ID
+    (42) factor -> . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 29
+    ID              shift and go to state 44
+    LPAREN          shift and go to state 20
+
+    term                           shift and go to state 104
+    factor                         shift and go to state 28
+
+state 90
+
+    (36) condition -> term GTHAN . term
+    (30) term -> . term TIMES factor
+    (31) term -> . term DIVIDE factor
+    (39) term -> . factor
+    (40) factor -> . NUMBER
+    (41) factor -> . ID
+    (42) factor -> . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 29
+    ID              shift and go to state 44
+    LPAREN          shift and go to state 20
+
+    term                           shift and go to state 105
+    factor                         shift and go to state 28
+
+state 91
+
+    (37) condition -> term LTHAN . term
+    (30) term -> . term TIMES factor
+    (31) term -> . term DIVIDE factor
+    (39) term -> . factor
+    (40) factor -> . NUMBER
+    (41) factor -> . ID
+    (42) factor -> . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 29
+    ID              shift and go to state 44
+    LPAREN          shift and go to state 20
+
+    term                           shift and go to state 106
+    factor                         shift and go to state 28
+
+state 92
+
+    (24) loop -> WHILE setScopeNameWhile condition compoundStmt . generateGotoLoop putLabelResult
+    (46) generateGotoLoop -> . empty
+    (55) empty -> .
+
+    LET             reduce using rule 55 (empty -> .)
+    PRINTMAC        reduce using rule 55 (empty -> .)
+    PRINTLNMAC      reduce using rule 55 (empty -> .)
+    ID              reduce using rule 55 (empty -> .)
+    IF              reduce using rule 55 (empty -> .)
+    WHILE           reduce using rule 55 (empty -> .)
+    LOOP            reduce using rule 55 (empty -> .)
+    FOR             reduce using rule 55 (empty -> .)
+    NUMBER          reduce using rule 55 (empty -> .)
+    LPAREN          reduce using rule 55 (empty -> .)
+    RBRACE          reduce using rule 55 (empty -> .)
+
+    generateGotoLoop               shift and go to state 107
+    empty                          shift and go to state 94
+
+state 93
+
+    (25) loop -> LOOP setScopeNameLoop compoundStmt generateGotoLoop . putLabelResult
+    (43) putLabelResult -> . empty
+    (55) empty -> .
+
+    LET             reduce using rule 55 (empty -> .)
+    PRINTMAC        reduce using rule 55 (empty -> .)
+    PRINTLNMAC      reduce using rule 55 (empty -> .)
+    ID              reduce using rule 55 (empty -> .)
+    IF              reduce using rule 55 (empty -> .)
+    WHILE           reduce using rule 55 (empty -> .)
+    LOOP            reduce using rule 55 (empty -> .)
+    FOR             reduce using rule 55 (empty -> .)
+    NUMBER          reduce using rule 55 (empty -> .)
+    LPAREN          reduce using rule 55 (empty -> .)
+    RBRACE          reduce using rule 55 (empty -> .)
+
+    putLabelResult                 shift and go to state 108
+    empty                          shift and go to state 109
+
+state 94
+
+    (46) generateGotoLoop -> empty .
+
+    LET             reduce using rule 46 (generateGotoLoop -> empty .)
+    PRINTMAC        reduce using rule 46 (generateGotoLoop -> empty .)
+    PRINTLNMAC      reduce using rule 46 (generateGotoLoop -> empty .)
+    ID              reduce using rule 46 (generateGotoLoop -> empty .)
+    IF              reduce using rule 46 (generateGotoLoop -> empty .)
+    WHILE           reduce using rule 46 (generateGotoLoop -> empty .)
+    LOOP            reduce using rule 46 (generateGotoLoop -> empty .)
+    FOR             reduce using rule 46 (generateGotoLoop -> empty .)
+    NUMBER          reduce using rule 46 (generateGotoLoop -> empty .)
+    LPAREN          reduce using rule 46 (generateGotoLoop -> empty .)
+    RBRACE          reduce using rule 46 (generateGotoLoop -> empty .)
+
+
+state 95
+
+    (26) loop -> FOR setScopeNameFor ID IN . ellipsis compoundStmt putLabelResult loopEnd
+    (27) ellipsis -> . term DOTDOT term
+    (30) term -> . term TIMES factor
+    (31) term -> . term DIVIDE factor
+    (39) term -> . factor
+    (40) factor -> . NUMBER
+    (41) factor -> . ID
+    (42) factor -> . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 29
+    ID              shift and go to state 44
+    LPAREN          shift and go to state 20
+
+    ellipsis                       shift and go to state 110
+    term                           shift and go to state 111
+    factor                         shift and go to state 28
+
+state 96
+
+    (11) AssignExpr -> ID . EQUALS expression COMMA AssignExpr
+    (12) AssignExpr -> ID . EQUALS expression SEMICOLON
+
+    EQUALS          shift and go to state 48
+
+
+state 97
+
+    (11) AssignExpr -> ID EQUALS expression COMMA AssignExpr .
+
+    LET             reduce using rule 11 (AssignExpr -> ID EQUALS expression COMMA AssignExpr .)
+    PRINTMAC        reduce using rule 11 (AssignExpr -> ID EQUALS expression COMMA AssignExpr .)
+    PRINTLNMAC      reduce using rule 11 (AssignExpr -> ID EQUALS expression COMMA AssignExpr .)
+    ID              reduce using rule 11 (AssignExpr -> ID EQUALS expression COMMA AssignExpr .)
+    IF              reduce using rule 11 (AssignExpr -> ID EQUALS expression COMMA AssignExpr .)
+    WHILE           reduce using rule 11 (AssignExpr -> ID EQUALS expression COMMA AssignExpr .)
+    LOOP            reduce using rule 11 (AssignExpr -> ID EQUALS expression COMMA AssignExpr .)
+    FOR             reduce using rule 11 (AssignExpr -> ID EQUALS expression COMMA AssignExpr .)
+    NUMBER          reduce using rule 11 (AssignExpr -> ID EQUALS expression COMMA AssignExpr .)
+    LPAREN          reduce using rule 11 (AssignExpr -> ID EQUALS expression COMMA AssignExpr .)
+    RBRACE          reduce using rule 11 (AssignExpr -> ID EQUALS expression COMMA AssignExpr .)
+
+
+state 98
+
+    (23) if -> IF setScopeNameIf condition compoundStmt putLabelResult .
+
+    LET             reduce using rule 23 (if -> IF setScopeNameIf condition compoundStmt putLabelResult .)
+    PRINTMAC        reduce using rule 23 (if -> IF setScopeNameIf condition compoundStmt putLabelResult .)
+    PRINTLNMAC      reduce using rule 23 (if -> IF setScopeNameIf condition compoundStmt putLabelResult .)
+    ID              reduce using rule 23 (if -> IF setScopeNameIf condition compoundStmt putLabelResult .)
+    IF              reduce using rule 23 (if -> IF setScopeNameIf condition compoundStmt putLabelResult .)
+    WHILE           reduce using rule 23 (if -> IF setScopeNameIf condition compoundStmt putLabelResult .)
+    LOOP            reduce using rule 23 (if -> IF setScopeNameIf condition compoundStmt putLabelResult .)
+    FOR             reduce using rule 23 (if -> IF setScopeNameIf condition compoundStmt putLabelResult .)
+    NUMBER          reduce using rule 23 (if -> IF setScopeNameIf condition compoundStmt putLabelResult .)
+    LPAREN          reduce using rule 23 (if -> IF setScopeNameIf condition compoundStmt putLabelResult .)
+    RBRACE          reduce using rule 23 (if -> IF setScopeNameIf condition compoundStmt putLabelResult .)
+
+
+state 99
+
+    (22) if_else -> IF setScopeNameIf condition compoundStmt generateGoto . ELSE setScopeNameElse putLabelResult compoundStmt putLabelArg
+
+    ELSE            shift and go to state 112
+
+
+state 100
+
+    (43) putLabelResult -> empty .
+    (45) generateGoto -> empty .
+
+    LET             reduce using rule 43 (putLabelResult -> empty .)
+    PRINTMAC        reduce using rule 43 (putLabelResult -> empty .)
+    PRINTLNMAC      reduce using rule 43 (putLabelResult -> empty .)
+    ID              reduce using rule 43 (putLabelResult -> empty .)
+    IF              reduce using rule 43 (putLabelResult -> empty .)
+    WHILE           reduce using rule 43 (putLabelResult -> empty .)
+    LOOP            reduce using rule 43 (putLabelResult -> empty .)
+    FOR             reduce using rule 43 (putLabelResult -> empty .)
+    NUMBER          reduce using rule 43 (putLabelResult -> empty .)
+    LPAREN          reduce using rule 43 (putLabelResult -> empty .)
+    RBRACE          reduce using rule 43 (putLabelResult -> empty .)
+    ELSE            reduce using rule 45 (generateGoto -> empty .)
+
+
+state 101
+
+    (32) condition -> term EQUALSEQUALS term .
+    (30) term -> term . TIMES factor
+    (31) term -> term . DIVIDE factor
+
+    LBRACE          reduce using rule 32 (condition -> term EQUALSEQUALS term .)
+    TIMES           shift and go to state 46
+    DIVIDE          shift and go to state 47
+
+
+state 102
+
+    (33) condition -> term NOTEQUALS term .
+    (30) term -> term . TIMES factor
+    (31) term -> term . DIVIDE factor
+
+    LBRACE          reduce using rule 33 (condition -> term NOTEQUALS term .)
+    TIMES           shift and go to state 46
+    DIVIDE          shift and go to state 47
+
+
+state 103
+
+    (34) condition -> term GTHANEQU term .
+    (30) term -> term . TIMES factor
+    (31) term -> term . DIVIDE factor
+
+    LBRACE          reduce using rule 34 (condition -> term GTHANEQU term .)
+    TIMES           shift and go to state 46
+    DIVIDE          shift and go to state 47
+
+
+state 104
+
+    (35) condition -> term LTHANEQU term .
+    (30) term -> term . TIMES factor
+    (31) term -> term . DIVIDE factor
+
+    LBRACE          reduce using rule 35 (condition -> term LTHANEQU term .)
+    TIMES           shift and go to state 46
+    DIVIDE          shift and go to state 47
+
+
+state 105
+
+    (36) condition -> term GTHAN term .
+    (30) term -> term . TIMES factor
+    (31) term -> term . DIVIDE factor
+
+    LBRACE          reduce using rule 36 (condition -> term GTHAN term .)
+    TIMES           shift and go to state 46
+    DIVIDE          shift and go to state 47
+
+
+state 106
+
+    (37) condition -> term LTHAN term .
+    (30) term -> term . TIMES factor
+    (31) term -> term . DIVIDE factor
+
+    LBRACE          reduce using rule 37 (condition -> term LTHAN term .)
+    TIMES           shift and go to state 46
+    DIVIDE          shift and go to state 47
+
+
+state 107
+
+    (24) loop -> WHILE setScopeNameWhile condition compoundStmt generateGotoLoop . putLabelResult
+    (43) putLabelResult -> . empty
+    (55) empty -> .
+
+    LET             reduce using rule 55 (empty -> .)
+    PRINTMAC        reduce using rule 55 (empty -> .)
+    PRINTLNMAC      reduce using rule 55 (empty -> .)
+    ID              reduce using rule 55 (empty -> .)
+    IF              reduce using rule 55 (empty -> .)
+    WHILE           reduce using rule 55 (empty -> .)
+    LOOP            reduce using rule 55 (empty -> .)
+    FOR             reduce using rule 55 (empty -> .)
+    NUMBER          reduce using rule 55 (empty -> .)
+    LPAREN          reduce using rule 55 (empty -> .)
+    RBRACE          reduce using rule 55 (empty -> .)
+
+    putLabelResult                 shift and go to state 113
+    empty                          shift and go to state 109
+
+state 108
+
+    (25) loop -> LOOP setScopeNameLoop compoundStmt generateGotoLoop putLabelResult .
+
+    LET             reduce using rule 25 (loop -> LOOP setScopeNameLoop compoundStmt generateGotoLoop putLabelResult .)
+    PRINTMAC        reduce using rule 25 (loop -> LOOP setScopeNameLoop compoundStmt generateGotoLoop putLabelResult .)
+    PRINTLNMAC      reduce using rule 25 (loop -> LOOP setScopeNameLoop compoundStmt generateGotoLoop putLabelResult .)
+    ID              reduce using rule 25 (loop -> LOOP setScopeNameLoop compoundStmt generateGotoLoop putLabelResult .)
+    IF              reduce using rule 25 (loop -> LOOP setScopeNameLoop compoundStmt generateGotoLoop putLabelResult .)
+    WHILE           reduce using rule 25 (loop -> LOOP setScopeNameLoop compoundStmt generateGotoLoop putLabelResult .)
+    LOOP            reduce using rule 25 (loop -> LOOP setScopeNameLoop compoundStmt generateGotoLoop putLabelResult .)
+    FOR             reduce using rule 25 (loop -> LOOP setScopeNameLoop compoundStmt generateGotoLoop putLabelResult .)
+    NUMBER          reduce using rule 25 (loop -> LOOP setScopeNameLoop compoundStmt generateGotoLoop putLabelResult .)
+    LPAREN          reduce using rule 25 (loop -> LOOP setScopeNameLoop compoundStmt generateGotoLoop putLabelResult .)
+    RBRACE          reduce using rule 25 (loop -> LOOP setScopeNameLoop compoundStmt generateGotoLoop putLabelResult .)
+
+
+state 109
+
+    (43) putLabelResult -> empty .
+
+    LET             reduce using rule 43 (putLabelResult -> empty .)
+    PRINTMAC        reduce using rule 43 (putLabelResult -> empty .)
+    PRINTLNMAC      reduce using rule 43 (putLabelResult -> empty .)
+    ID              reduce using rule 43 (putLabelResult -> empty .)
+    IF              reduce using rule 43 (putLabelResult -> empty .)
+    WHILE           reduce using rule 43 (putLabelResult -> empty .)
+    LOOP            reduce using rule 43 (putLabelResult -> empty .)
+    FOR             reduce using rule 43 (putLabelResult -> empty .)
+    NUMBER          reduce using rule 43 (putLabelResult -> empty .)
+    LPAREN          reduce using rule 43 (putLabelResult -> empty .)
+    RBRACE          reduce using rule 43 (putLabelResult -> empty .)
+    LBRACE          reduce using rule 43 (putLabelResult -> empty .)
+
+
+state 110
+
+    (26) loop -> FOR setScopeNameFor ID IN ellipsis . compoundStmt putLabelResult loopEnd
+    (2) compoundStmt -> . LBRACE tablePush Stmt moreStmt tablePop RBRACE
+    (3) compoundStmt -> . LBRACE tablePush Decl moreStmt tablePop RBRACE
+
+    LBRACE          shift and go to state 7
+
+    compoundStmt                   shift and go to state 114
+
+state 111
+
+    (27) ellipsis -> term . DOTDOT term
+    (30) term -> term . TIMES factor
+    (31) term -> term . DIVIDE factor
+
+    DOTDOT          shift and go to state 115
+    TIMES           shift and go to state 46
+    DIVIDE          shift and go to state 47
+
+
+state 112
+
+    (22) if_else -> IF setScopeNameIf condition compoundStmt generateGoto ELSE . setScopeNameElse putLabelResult compoundStmt putLabelArg
+    (48) setScopeNameElse -> . empty
+    (55) empty -> .
+
+    LBRACE          reduce using rule 55 (empty -> .)
+
+    setScopeNameElse               shift and go to state 116
+    empty                          shift and go to state 117
+
+state 113
+
+    (24) loop -> WHILE setScopeNameWhile condition compoundStmt generateGotoLoop putLabelResult .
+
+    LET             reduce using rule 24 (loop -> WHILE setScopeNameWhile condition compoundStmt generateGotoLoop putLabelResult .)
+    PRINTMAC        reduce using rule 24 (loop -> WHILE setScopeNameWhile condition compoundStmt generateGotoLoop putLabelResult .)
+    PRINTLNMAC      reduce using rule 24 (loop -> WHILE setScopeNameWhile condition compoundStmt generateGotoLoop putLabelResult .)
+    ID              reduce using rule 24 (loop -> WHILE setScopeNameWhile condition compoundStmt generateGotoLoop putLabelResult .)
+    IF              reduce using rule 24 (loop -> WHILE setScopeNameWhile condition compoundStmt generateGotoLoop putLabelResult .)
+    WHILE           reduce using rule 24 (loop -> WHILE setScopeNameWhile condition compoundStmt generateGotoLoop putLabelResult .)
+    LOOP            reduce using rule 24 (loop -> WHILE setScopeNameWhile condition compoundStmt generateGotoLoop putLabelResult .)
+    FOR             reduce using rule 24 (loop -> WHILE setScopeNameWhile condition compoundStmt generateGotoLoop putLabelResult .)
+    NUMBER          reduce using rule 24 (loop -> WHILE setScopeNameWhile condition compoundStmt generateGotoLoop putLabelResult .)
+    LPAREN          reduce using rule 24 (loop -> WHILE setScopeNameWhile condition compoundStmt generateGotoLoop putLabelResult .)
+    RBRACE          reduce using rule 24 (loop -> WHILE setScopeNameWhile condition compoundStmt generateGotoLoop putLabelResult .)
+
+
+state 114
+
+    (26) loop -> FOR setScopeNameFor ID IN ellipsis compoundStmt . putLabelResult loopEnd
+    (43) putLabelResult -> . empty
+    (55) empty -> .
+
+    LET             reduce using rule 55 (empty -> .)
+    PRINTMAC        reduce using rule 55 (empty -> .)
+    PRINTLNMAC      reduce using rule 55 (empty -> .)
+    ID              reduce using rule 55 (empty -> .)
+    IF              reduce using rule 55 (empty -> .)
+    WHILE           reduce using rule 55 (empty -> .)
+    LOOP            reduce using rule 55 (empty -> .)
+    FOR             reduce using rule 55 (empty -> .)
+    NUMBER          reduce using rule 55 (empty -> .)
+    LPAREN          reduce using rule 55 (empty -> .)
+    RBRACE          reduce using rule 55 (empty -> .)
+
+    putLabelResult                 shift and go to state 118
+    empty                          shift and go to state 109
+
+state 115
+
+    (27) ellipsis -> term DOTDOT . term
+    (30) term -> . term TIMES factor
+    (31) term -> . term DIVIDE factor
+    (39) term -> . factor
+    (40) factor -> . NUMBER
+    (41) factor -> . ID
+    (42) factor -> . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 29
+    ID              shift and go to state 44
+    LPAREN          shift and go to state 20
+
+    term                           shift and go to state 119
+    factor                         shift and go to state 28
+
+state 116
+
+    (22) if_else -> IF setScopeNameIf condition compoundStmt generateGoto ELSE setScopeNameElse . putLabelResult compoundStmt putLabelArg
+    (43) putLabelResult -> . empty
+    (55) empty -> .
+
+    LBRACE          reduce using rule 55 (empty -> .)
+
+    putLabelResult                 shift and go to state 120
+    empty                          shift and go to state 109
+
+state 117
+
+    (48) setScopeNameElse -> empty .
+
+    LBRACE          reduce using rule 48 (setScopeNameElse -> empty .)
+
+
+state 118
+
+    (26) loop -> FOR setScopeNameFor ID IN ellipsis compoundStmt putLabelResult . loopEnd
+    (52) loopEnd -> . empty
+    (55) empty -> .
+
+    LET             reduce using rule 55 (empty -> .)
+    PRINTMAC        reduce using rule 55 (empty -> .)
+    PRINTLNMAC      reduce using rule 55 (empty -> .)
+    ID              reduce using rule 55 (empty -> .)
+    IF              reduce using rule 55 (empty -> .)
+    WHILE           reduce using rule 55 (empty -> .)
+    LOOP            reduce using rule 55 (empty -> .)
+    FOR             reduce using rule 55 (empty -> .)
+    NUMBER          reduce using rule 55 (empty -> .)
+    LPAREN          reduce using rule 55 (empty -> .)
+    RBRACE          reduce using rule 55 (empty -> .)
+
+    loopEnd                        shift and go to state 121
+    empty                          shift and go to state 122
+
+state 119
+
+    (27) ellipsis -> term DOTDOT term .
+    (30) term -> term . TIMES factor
+    (31) term -> term . DIVIDE factor
+
+    LBRACE          reduce using rule 27 (ellipsis -> term DOTDOT term .)
+    TIMES           shift and go to state 46
+    DIVIDE          shift and go to state 47
+
+
+state 120
+
+    (22) if_else -> IF setScopeNameIf condition compoundStmt generateGoto ELSE setScopeNameElse putLabelResult . compoundStmt putLabelArg
+    (2) compoundStmt -> . LBRACE tablePush Stmt moreStmt tablePop RBRACE
+    (3) compoundStmt -> . LBRACE tablePush Decl moreStmt tablePop RBRACE
+
+    LBRACE          shift and go to state 7
+
+    compoundStmt                   shift and go to state 123
+
+state 121
+
+    (26) loop -> FOR setScopeNameFor ID IN ellipsis compoundStmt putLabelResult loopEnd .
+
+    LET             reduce using rule 26 (loop -> FOR setScopeNameFor ID IN ellipsis compoundStmt putLabelResult loopEnd .)
+    PRINTMAC        reduce using rule 26 (loop -> FOR setScopeNameFor ID IN ellipsis compoundStmt putLabelResult loopEnd .)
+    PRINTLNMAC      reduce using rule 26 (loop -> FOR setScopeNameFor ID IN ellipsis compoundStmt putLabelResult loopEnd .)
+    ID              reduce using rule 26 (loop -> FOR setScopeNameFor ID IN ellipsis compoundStmt putLabelResult loopEnd .)
+    IF              reduce using rule 26 (loop -> FOR setScopeNameFor ID IN ellipsis compoundStmt putLabelResult loopEnd .)
+    WHILE           reduce using rule 26 (loop -> FOR setScopeNameFor ID IN ellipsis compoundStmt putLabelResult loopEnd .)
+    LOOP            reduce using rule 26 (loop -> FOR setScopeNameFor ID IN ellipsis compoundStmt putLabelResult loopEnd .)
+    FOR             reduce using rule 26 (loop -> FOR setScopeNameFor ID IN ellipsis compoundStmt putLabelResult loopEnd .)
+    NUMBER          reduce using rule 26 (loop -> FOR setScopeNameFor ID IN ellipsis compoundStmt putLabelResult loopEnd .)
+    LPAREN          reduce using rule 26 (loop -> FOR setScopeNameFor ID IN ellipsis compoundStmt putLabelResult loopEnd .)
+    RBRACE          reduce using rule 26 (loop -> FOR setScopeNameFor ID IN ellipsis compoundStmt putLabelResult loopEnd .)
+
+
+state 122
+
+    (52) loopEnd -> empty .
+
+    LET             reduce using rule 52 (loopEnd -> empty .)
+    PRINTMAC        reduce using rule 52 (loopEnd -> empty .)
+    PRINTLNMAC      reduce using rule 52 (loopEnd -> empty .)
+    ID              reduce using rule 52 (loopEnd -> empty .)
+    IF              reduce using rule 52 (loopEnd -> empty .)
+    WHILE           reduce using rule 52 (loopEnd -> empty .)
+    LOOP            reduce using rule 52 (loopEnd -> empty .)
+    FOR             reduce using rule 52 (loopEnd -> empty .)
+    NUMBER          reduce using rule 52 (loopEnd -> empty .)
+    LPAREN          reduce using rule 52 (loopEnd -> empty .)
+    RBRACE          reduce using rule 52 (loopEnd -> empty .)
+
+
+state 123
+
+    (22) if_else -> IF setScopeNameIf condition compoundStmt generateGoto ELSE setScopeNameElse putLabelResult compoundStmt . putLabelArg
+    (44) putLabelArg -> . empty
+    (55) empty -> .
+
+    LET             reduce using rule 55 (empty -> .)
+    PRINTMAC        reduce using rule 55 (empty -> .)
+    PRINTLNMAC      reduce using rule 55 (empty -> .)
+    ID              reduce using rule 55 (empty -> .)
+    IF              reduce using rule 55 (empty -> .)
+    WHILE           reduce using rule 55 (empty -> .)
+    LOOP            reduce using rule 55 (empty -> .)
+    FOR             reduce using rule 55 (empty -> .)
+    NUMBER          reduce using rule 55 (empty -> .)
+    LPAREN          reduce using rule 55 (empty -> .)
+    RBRACE          reduce using rule 55 (empty -> .)
+
+    putLabelArg                    shift and go to state 124
+    empty                          shift and go to state 125
+
+state 124
+
+    (22) if_else -> IF setScopeNameIf condition compoundStmt generateGoto ELSE setScopeNameElse putLabelResult compoundStmt putLabelArg .
+
+    LET             reduce using rule 22 (if_else -> IF setScopeNameIf condition compoundStmt generateGoto ELSE setScopeNameElse putLabelResult compoundStmt putLabelArg .)
+    PRINTMAC        reduce using rule 22 (if_else -> IF setScopeNameIf condition compoundStmt generateGoto ELSE setScopeNameElse putLabelResult compoundStmt putLabelArg .)
+    PRINTLNMAC      reduce using rule 22 (if_else -> IF setScopeNameIf condition compoundStmt generateGoto ELSE setScopeNameElse putLabelResult compoundStmt putLabelArg .)
+    ID              reduce using rule 22 (if_else -> IF setScopeNameIf condition compoundStmt generateGoto ELSE setScopeNameElse putLabelResult compoundStmt putLabelArg .)
+    IF              reduce using rule 22 (if_else -> IF setScopeNameIf condition compoundStmt generateGoto ELSE setScopeNameElse putLabelResult compoundStmt putLabelArg .)
+    WHILE           reduce using rule 22 (if_else -> IF setScopeNameIf condition compoundStmt generateGoto ELSE setScopeNameElse putLabelResult compoundStmt putLabelArg .)
+    LOOP            reduce using rule 22 (if_else -> IF setScopeNameIf condition compoundStmt generateGoto ELSE setScopeNameElse putLabelResult compoundStmt putLabelArg .)
+    FOR             reduce using rule 22 (if_else -> IF setScopeNameIf condition compoundStmt generateGoto ELSE setScopeNameElse putLabelResult compoundStmt putLabelArg .)
+    NUMBER          reduce using rule 22 (if_else -> IF setScopeNameIf condition compoundStmt generateGoto ELSE setScopeNameElse putLabelResult compoundStmt putLabelArg .)
+    LPAREN          reduce using rule 22 (if_else -> IF setScopeNameIf condition compoundStmt generateGoto ELSE setScopeNameElse putLabelResult compoundStmt putLabelArg .)
+    RBRACE          reduce using rule 22 (if_else -> IF setScopeNameIf condition compoundStmt generateGoto ELSE setScopeNameElse putLabelResult compoundStmt putLabelArg .)
+
+
+state 125
+
+    (44) putLabelArg -> empty .
+
+    LET             reduce using rule 44 (putLabelArg -> empty .)
+    PRINTMAC        reduce using rule 44 (putLabelArg -> empty .)
+    PRINTLNMAC      reduce using rule 44 (putLabelArg -> empty .)
+    ID              reduce using rule 44 (putLabelArg -> empty .)
+    IF              reduce using rule 44 (putLabelArg -> empty .)
+    WHILE           reduce using rule 44 (putLabelArg -> empty .)
+    LOOP            reduce using rule 44 (putLabelArg -> empty .)
+    FOR             reduce using rule 44 (putLabelArg -> empty .)
+    NUMBER          reduce using rule 44 (putLabelArg -> empty .)
+    LPAREN          reduce using rule 44 (putLabelArg -> empty .)
+    RBRACE          reduce using rule 44 (putLabelArg -> empty .)
+

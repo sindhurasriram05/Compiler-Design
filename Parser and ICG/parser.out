@@ -1,0 +1,793 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    COMMENT
+    DEF
+    EQ
+    ERROR
+    FLOAT
+    FUNC
+    GLOBAL
+    GRT
+    GRTEQ
+    ID
+    IMPORT
+    INDENT
+    INTEGER
+    LAMBDA
+    LBRACE
+    LSR
+    LSREQ
+    NEWLINE
+    PRINT
+    RBRACE
+    STRING
+    WHITE
+
+Grammar
+
+Rule 0     S' -> statement
+Rule 1     statement -> WHILE LPAREN expression RPAREN COL statement
+Rule 2     statement -> IF LPAREN expression RPAREN COL statement ELIF LPAREN expression RPAREN statement
+Rule 3     statement -> IF LPAREN expression RPAREN COL statement ELSE COL statement
+Rule 4     statement -> IF LPAREN expression RPAREN COL statement
+Rule 5     statement -> NAME EQUALS expression
+Rule 6     statement -> expression
+Rule 7     expression -> expression PLUS expression
+Rule 8     expression -> expression MINUS expression
+Rule 9     expression -> expression TIMES expression
+Rule 10    expression -> expression DIVIDE expression
+Rule 11    expression -> MINUS expression
+Rule 12    expression -> LPAREN expression RPAREN
+Rule 13    expression -> NUMBER
+Rule 14    expression -> NAME
+
+Terminals, with rules where they appear
+
+COL                  : 1 2 3 3 4
+COMMENT              : 
+DEF                  : 
+DIVIDE               : 10
+ELIF                 : 2
+ELSE                 : 3
+EQ                   : 
+EQUALS               : 5
+ERROR                : 
+FLOAT                : 
+FUNC                 : 
+GLOBAL               : 
+GRT                  : 
+GRTEQ                : 
+ID                   : 
+IF                   : 2 3 4
+IMPORT               : 
+INDENT               : 
+INTEGER              : 
+LAMBDA               : 
+LBRACE               : 
+LPAREN               : 1 2 2 3 4 12
+LSR                  : 
+LSREQ                : 
+MINUS                : 8 11
+NAME                 : 5 14
+NEWLINE              : 
+NUMBER               : 13
+PLUS                 : 7
+PRINT                : 
+RBRACE               : 
+RPAREN               : 1 2 2 3 4 12
+STRING               : 
+TIMES                : 9
+WHILE                : 1
+WHITE                : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+expression           : 1 2 2 3 4 5 6 7 7 8 8 9 9 10 10 11 12
+statement            : 1 2 2 3 3 4 0
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . statement
+    (1) statement -> . WHILE LPAREN expression RPAREN COL statement
+    (2) statement -> . IF LPAREN expression RPAREN COL statement ELIF LPAREN expression RPAREN statement
+    (3) statement -> . IF LPAREN expression RPAREN COL statement ELSE COL statement
+    (4) statement -> . IF LPAREN expression RPAREN COL statement
+    (5) statement -> . NAME EQUALS expression
+    (6) statement -> . expression
+    (7) expression -> . expression PLUS expression
+    (8) expression -> . expression MINUS expression
+    (9) expression -> . expression TIMES expression
+    (10) expression -> . expression DIVIDE expression
+    (11) expression -> . MINUS expression
+    (12) expression -> . LPAREN expression RPAREN
+    (13) expression -> . NUMBER
+    (14) expression -> . NAME
+
+    WHILE           shift and go to state 2
+    IF              shift and go to state 5
+    NAME            shift and go to state 6
+    MINUS           shift and go to state 7
+    LPAREN          shift and go to state 3
+    NUMBER          shift and go to state 8
+
+    statement                      shift and go to state 1
+    expression                     shift and go to state 4
+
+state 1
+
+    (0) S' -> statement .
+
+
+
+state 2
+
+    (1) statement -> WHILE . LPAREN expression RPAREN COL statement
+
+    LPAREN          shift and go to state 9
+
+
+state 3
+
+    (12) expression -> LPAREN . expression RPAREN
+    (7) expression -> . expression PLUS expression
+    (8) expression -> . expression MINUS expression
+    (9) expression -> . expression TIMES expression
+    (10) expression -> . expression DIVIDE expression
+    (11) expression -> . MINUS expression
+    (12) expression -> . LPAREN expression RPAREN
+    (13) expression -> . NUMBER
+    (14) expression -> . NAME
+
+    MINUS           shift and go to state 7
+    LPAREN          shift and go to state 3
+    NUMBER          shift and go to state 8
+    NAME            shift and go to state 11
+
+    expression                     shift and go to state 10
+
+state 4
+
+    (6) statement -> expression .
+    (7) expression -> expression . PLUS expression
+    (8) expression -> expression . MINUS expression
+    (9) expression -> expression . TIMES expression
+    (10) expression -> expression . DIVIDE expression
+
+    $end            reduce using rule 6 (statement -> expression .)
+    ELIF            reduce using rule 6 (statement -> expression .)
+    ELSE            reduce using rule 6 (statement -> expression .)
+    PLUS            shift and go to state 12
+    MINUS           shift and go to state 13
+    TIMES           shift and go to state 14
+    DIVIDE          shift and go to state 15
+
+
+state 5
+
+    (2) statement -> IF . LPAREN expression RPAREN COL statement ELIF LPAREN expression RPAREN statement
+    (3) statement -> IF . LPAREN expression RPAREN COL statement ELSE COL statement
+    (4) statement -> IF . LPAREN expression RPAREN COL statement
+
+    LPAREN          shift and go to state 16
+
+
+state 6
+
+    (5) statement -> NAME . EQUALS expression
+    (14) expression -> NAME .
+
+    EQUALS          shift and go to state 17
+    PLUS            reduce using rule 14 (expression -> NAME .)
+    MINUS           reduce using rule 14 (expression -> NAME .)
+    TIMES           reduce using rule 14 (expression -> NAME .)
+    DIVIDE          reduce using rule 14 (expression -> NAME .)
+    $end            reduce using rule 14 (expression -> NAME .)
+    ELIF            reduce using rule 14 (expression -> NAME .)
+    ELSE            reduce using rule 14 (expression -> NAME .)
+
+
+state 7
+
+    (11) expression -> MINUS . expression
+    (7) expression -> . expression PLUS expression
+    (8) expression -> . expression MINUS expression
+    (9) expression -> . expression TIMES expression
+    (10) expression -> . expression DIVIDE expression
+    (11) expression -> . MINUS expression
+    (12) expression -> . LPAREN expression RPAREN
+    (13) expression -> . NUMBER
+    (14) expression -> . NAME
+
+    MINUS           shift and go to state 7
+    LPAREN          shift and go to state 3
+    NUMBER          shift and go to state 8
+    NAME            shift and go to state 11
+
+    expression                     shift and go to state 18
+
+state 8
+
+    (13) expression -> NUMBER .
+
+    PLUS            reduce using rule 13 (expression -> NUMBER .)
+    MINUS           reduce using rule 13 (expression -> NUMBER .)
+    TIMES           reduce using rule 13 (expression -> NUMBER .)
+    DIVIDE          reduce using rule 13 (expression -> NUMBER .)
+    $end            reduce using rule 13 (expression -> NUMBER .)
+    RPAREN          reduce using rule 13 (expression -> NUMBER .)
+    ELIF            reduce using rule 13 (expression -> NUMBER .)
+    ELSE            reduce using rule 13 (expression -> NUMBER .)
+
+
+state 9
+
+    (1) statement -> WHILE LPAREN . expression RPAREN COL statement
+    (7) expression -> . expression PLUS expression
+    (8) expression -> . expression MINUS expression
+    (9) expression -> . expression TIMES expression
+    (10) expression -> . expression DIVIDE expression
+    (11) expression -> . MINUS expression
+    (12) expression -> . LPAREN expression RPAREN
+    (13) expression -> . NUMBER
+    (14) expression -> . NAME
+
+    MINUS           shift and go to state 7
+    LPAREN          shift and go to state 3
+    NUMBER          shift and go to state 8
+    NAME            shift and go to state 11
+
+    expression                     shift and go to state 19
+
+state 10
+
+    (12) expression -> LPAREN expression . RPAREN
+    (7) expression -> expression . PLUS expression
+    (8) expression -> expression . MINUS expression
+    (9) expression -> expression . TIMES expression
+    (10) expression -> expression . DIVIDE expression
+
+    RPAREN          shift and go to state 20
+    PLUS            shift and go to state 12
+    MINUS           shift and go to state 13
+    TIMES           shift and go to state 14
+    DIVIDE          shift and go to state 15
+
+
+state 11
+
+    (14) expression -> NAME .
+
+    RPAREN          reduce using rule 14 (expression -> NAME .)
+    PLUS            reduce using rule 14 (expression -> NAME .)
+    MINUS           reduce using rule 14 (expression -> NAME .)
+    TIMES           reduce using rule 14 (expression -> NAME .)
+    DIVIDE          reduce using rule 14 (expression -> NAME .)
+    $end            reduce using rule 14 (expression -> NAME .)
+    ELIF            reduce using rule 14 (expression -> NAME .)
+    ELSE            reduce using rule 14 (expression -> NAME .)
+
+
+state 12
+
+    (7) expression -> expression PLUS . expression
+    (7) expression -> . expression PLUS expression
+    (8) expression -> . expression MINUS expression
+    (9) expression -> . expression TIMES expression
+    (10) expression -> . expression DIVIDE expression
+    (11) expression -> . MINUS expression
+    (12) expression -> . LPAREN expression RPAREN
+    (13) expression -> . NUMBER
+    (14) expression -> . NAME
+
+    MINUS           shift and go to state 7
+    LPAREN          shift and go to state 3
+    NUMBER          shift and go to state 8
+    NAME            shift and go to state 11
+
+    expression                     shift and go to state 21
+
+state 13
+
+    (8) expression -> expression MINUS . expression
+    (7) expression -> . expression PLUS expression
+    (8) expression -> . expression MINUS expression
+    (9) expression -> . expression TIMES expression
+    (10) expression -> . expression DIVIDE expression
+    (11) expression -> . MINUS expression
+    (12) expression -> . LPAREN expression RPAREN
+    (13) expression -> . NUMBER
+    (14) expression -> . NAME
+
+    MINUS           shift and go to state 7
+    LPAREN          shift and go to state 3
+    NUMBER          shift and go to state 8
+    NAME            shift and go to state 11
+
+    expression                     shift and go to state 22
+
+state 14
+
+    (9) expression -> expression TIMES . expression
+    (7) expression -> . expression PLUS expression
+    (8) expression -> . expression MINUS expression
+    (9) expression -> . expression TIMES expression
+    (10) expression -> . expression DIVIDE expression
+    (11) expression -> . MINUS expression
+    (12) expression -> . LPAREN expression RPAREN
+    (13) expression -> . NUMBER
+    (14) expression -> . NAME
+
+    MINUS           shift and go to state 7
+    LPAREN          shift and go to state 3
+    NUMBER          shift and go to state 8
+    NAME            shift and go to state 11
+
+    expression                     shift and go to state 23
+
+state 15
+
+    (10) expression -> expression DIVIDE . expression
+    (7) expression -> . expression PLUS expression
+    (8) expression -> . expression MINUS expression
+    (9) expression -> . expression TIMES expression
+    (10) expression -> . expression DIVIDE expression
+    (11) expression -> . MINUS expression
+    (12) expression -> . LPAREN expression RPAREN
+    (13) expression -> . NUMBER
+    (14) expression -> . NAME
+
+    MINUS           shift and go to state 7
+    LPAREN          shift and go to state 3
+    NUMBER          shift and go to state 8
+    NAME            shift and go to state 11
+
+    expression                     shift and go to state 24
+
+state 16
+
+    (2) statement -> IF LPAREN . expression RPAREN COL statement ELIF LPAREN expression RPAREN statement
+    (3) statement -> IF LPAREN . expression RPAREN COL statement ELSE COL statement
+    (4) statement -> IF LPAREN . expression RPAREN COL statement
+    (7) expression -> . expression PLUS expression
+    (8) expression -> . expression MINUS expression
+    (9) expression -> . expression TIMES expression
+    (10) expression -> . expression DIVIDE expression
+    (11) expression -> . MINUS expression
+    (12) expression -> . LPAREN expression RPAREN
+    (13) expression -> . NUMBER
+    (14) expression -> . NAME
+
+    MINUS           shift and go to state 7
+    LPAREN          shift and go to state 3
+    NUMBER          shift and go to state 8
+    NAME            shift and go to state 11
+
+    expression                     shift and go to state 25
+
+state 17
+
+    (5) statement -> NAME EQUALS . expression
+    (7) expression -> . expression PLUS expression
+    (8) expression -> . expression MINUS expression
+    (9) expression -> . expression TIMES expression
+    (10) expression -> . expression DIVIDE expression
+    (11) expression -> . MINUS expression
+    (12) expression -> . LPAREN expression RPAREN
+    (13) expression -> . NUMBER
+    (14) expression -> . NAME
+
+    MINUS           shift and go to state 7
+    LPAREN          shift and go to state 3
+    NUMBER          shift and go to state 8
+    NAME            shift and go to state 11
+
+    expression                     shift and go to state 26
+
+state 18
+
+    (11) expression -> MINUS expression .
+    (7) expression -> expression . PLUS expression
+    (8) expression -> expression . MINUS expression
+    (9) expression -> expression . TIMES expression
+    (10) expression -> expression . DIVIDE expression
+
+    PLUS            reduce using rule 11 (expression -> MINUS expression .)
+    MINUS           reduce using rule 11 (expression -> MINUS expression .)
+    TIMES           reduce using rule 11 (expression -> MINUS expression .)
+    DIVIDE          reduce using rule 11 (expression -> MINUS expression .)
+    $end            reduce using rule 11 (expression -> MINUS expression .)
+    RPAREN          reduce using rule 11 (expression -> MINUS expression .)
+    ELIF            reduce using rule 11 (expression -> MINUS expression .)
+    ELSE            reduce using rule 11 (expression -> MINUS expression .)
+
+  ! PLUS            [ shift and go to state 12 ]
+  ! MINUS           [ shift and go to state 13 ]
+  ! TIMES           [ shift and go to state 14 ]
+  ! DIVIDE          [ shift and go to state 15 ]
+
+
+state 19
+
+    (1) statement -> WHILE LPAREN expression . RPAREN COL statement
+    (7) expression -> expression . PLUS expression
+    (8) expression -> expression . MINUS expression
+    (9) expression -> expression . TIMES expression
+    (10) expression -> expression . DIVIDE expression
+
+    RPAREN          shift and go to state 27
+    PLUS            shift and go to state 12
+    MINUS           shift and go to state 13
+    TIMES           shift and go to state 14
+    DIVIDE          shift and go to state 15
+
+
+state 20
+
+    (12) expression -> LPAREN expression RPAREN .
+
+    PLUS            reduce using rule 12 (expression -> LPAREN expression RPAREN .)
+    MINUS           reduce using rule 12 (expression -> LPAREN expression RPAREN .)
+    TIMES           reduce using rule 12 (expression -> LPAREN expression RPAREN .)
+    DIVIDE          reduce using rule 12 (expression -> LPAREN expression RPAREN .)
+    $end            reduce using rule 12 (expression -> LPAREN expression RPAREN .)
+    RPAREN          reduce using rule 12 (expression -> LPAREN expression RPAREN .)
+    ELIF            reduce using rule 12 (expression -> LPAREN expression RPAREN .)
+    ELSE            reduce using rule 12 (expression -> LPAREN expression RPAREN .)
+
+
+state 21
+
+    (7) expression -> expression PLUS expression .
+    (7) expression -> expression . PLUS expression
+    (8) expression -> expression . MINUS expression
+    (9) expression -> expression . TIMES expression
+    (10) expression -> expression . DIVIDE expression
+
+    PLUS            reduce using rule 7 (expression -> expression PLUS expression .)
+    MINUS           reduce using rule 7 (expression -> expression PLUS expression .)
+    $end            reduce using rule 7 (expression -> expression PLUS expression .)
+    RPAREN          reduce using rule 7 (expression -> expression PLUS expression .)
+    ELIF            reduce using rule 7 (expression -> expression PLUS expression .)
+    ELSE            reduce using rule 7 (expression -> expression PLUS expression .)
+    TIMES           shift and go to state 14
+    DIVIDE          shift and go to state 15
+
+  ! TIMES           [ reduce using rule 7 (expression -> expression PLUS expression .) ]
+  ! DIVIDE          [ reduce using rule 7 (expression -> expression PLUS expression .) ]
+  ! PLUS            [ shift and go to state 12 ]
+  ! MINUS           [ shift and go to state 13 ]
+
+
+state 22
+
+    (8) expression -> expression MINUS expression .
+    (7) expression -> expression . PLUS expression
+    (8) expression -> expression . MINUS expression
+    (9) expression -> expression . TIMES expression
+    (10) expression -> expression . DIVIDE expression
+
+    PLUS            reduce using rule 8 (expression -> expression MINUS expression .)
+    MINUS           reduce using rule 8 (expression -> expression MINUS expression .)
+    $end            reduce using rule 8 (expression -> expression MINUS expression .)
+    RPAREN          reduce using rule 8 (expression -> expression MINUS expression .)
+    ELIF            reduce using rule 8 (expression -> expression MINUS expression .)
+    ELSE            reduce using rule 8 (expression -> expression MINUS expression .)
+    TIMES           shift and go to state 14
+    DIVIDE          shift and go to state 15
+
+  ! TIMES           [ reduce using rule 8 (expression -> expression MINUS expression .) ]
+  ! DIVIDE          [ reduce using rule 8 (expression -> expression MINUS expression .) ]
+  ! PLUS            [ shift and go to state 12 ]
+  ! MINUS           [ shift and go to state 13 ]
+
+
+state 23
+
+    (9) expression -> expression TIMES expression .
+    (7) expression -> expression . PLUS expression
+    (8) expression -> expression . MINUS expression
+    (9) expression -> expression . TIMES expression
+    (10) expression -> expression . DIVIDE expression
+
+    PLUS            reduce using rule 9 (expression -> expression TIMES expression .)
+    MINUS           reduce using rule 9 (expression -> expression TIMES expression .)
+    TIMES           reduce using rule 9 (expression -> expression TIMES expression .)
+    DIVIDE          reduce using rule 9 (expression -> expression TIMES expression .)
+    $end            reduce using rule 9 (expression -> expression TIMES expression .)
+    RPAREN          reduce using rule 9 (expression -> expression TIMES expression .)
+    ELIF            reduce using rule 9 (expression -> expression TIMES expression .)
+    ELSE            reduce using rule 9 (expression -> expression TIMES expression .)
+
+  ! PLUS            [ shift and go to state 12 ]
+  ! MINUS           [ shift and go to state 13 ]
+  ! TIMES           [ shift and go to state 14 ]
+  ! DIVIDE          [ shift and go to state 15 ]
+
+
+state 24
+
+    (10) expression -> expression DIVIDE expression .
+    (7) expression -> expression . PLUS expression
+    (8) expression -> expression . MINUS expression
+    (9) expression -> expression . TIMES expression
+    (10) expression -> expression . DIVIDE expression
+
+    PLUS            reduce using rule 10 (expression -> expression DIVIDE expression .)
+    MINUS           reduce using rule 10 (expression -> expression DIVIDE expression .)
+    TIMES           reduce using rule 10 (expression -> expression DIVIDE expression .)
+    DIVIDE          reduce using rule 10 (expression -> expression DIVIDE expression .)
+    $end            reduce using rule 10 (expression -> expression DIVIDE expression .)
+    RPAREN          reduce using rule 10 (expression -> expression DIVIDE expression .)
+    ELIF            reduce using rule 10 (expression -> expression DIVIDE expression .)
+    ELSE            reduce using rule 10 (expression -> expression DIVIDE expression .)
+
+  ! PLUS            [ shift and go to state 12 ]
+  ! MINUS           [ shift and go to state 13 ]
+  ! TIMES           [ shift and go to state 14 ]
+  ! DIVIDE          [ shift and go to state 15 ]
+
+
+state 25
+
+    (2) statement -> IF LPAREN expression . RPAREN COL statement ELIF LPAREN expression RPAREN statement
+    (3) statement -> IF LPAREN expression . RPAREN COL statement ELSE COL statement
+    (4) statement -> IF LPAREN expression . RPAREN COL statement
+    (7) expression -> expression . PLUS expression
+    (8) expression -> expression . MINUS expression
+    (9) expression -> expression . TIMES expression
+    (10) expression -> expression . DIVIDE expression
+
+    RPAREN          shift and go to state 28
+    PLUS            shift and go to state 12
+    MINUS           shift and go to state 13
+    TIMES           shift and go to state 14
+    DIVIDE          shift and go to state 15
+
+
+state 26
+
+    (5) statement -> NAME EQUALS expression .
+    (7) expression -> expression . PLUS expression
+    (8) expression -> expression . MINUS expression
+    (9) expression -> expression . TIMES expression
+    (10) expression -> expression . DIVIDE expression
+
+    $end            reduce using rule 5 (statement -> NAME EQUALS expression .)
+    ELIF            reduce using rule 5 (statement -> NAME EQUALS expression .)
+    ELSE            reduce using rule 5 (statement -> NAME EQUALS expression .)
+    PLUS            shift and go to state 12
+    MINUS           shift and go to state 13
+    TIMES           shift and go to state 14
+    DIVIDE          shift and go to state 15
+
+
+state 27
+
+    (1) statement -> WHILE LPAREN expression RPAREN . COL statement
+
+    COL             shift and go to state 29
+
+
+state 28
+
+    (2) statement -> IF LPAREN expression RPAREN . COL statement ELIF LPAREN expression RPAREN statement
+    (3) statement -> IF LPAREN expression RPAREN . COL statement ELSE COL statement
+    (4) statement -> IF LPAREN expression RPAREN . COL statement
+
+    COL             shift and go to state 30
+
+
+state 29
+
+    (1) statement -> WHILE LPAREN expression RPAREN COL . statement
+    (1) statement -> . WHILE LPAREN expression RPAREN COL statement
+    (2) statement -> . IF LPAREN expression RPAREN COL statement ELIF LPAREN expression RPAREN statement
+    (3) statement -> . IF LPAREN expression RPAREN COL statement ELSE COL statement
+    (4) statement -> . IF LPAREN expression RPAREN COL statement
+    (5) statement -> . NAME EQUALS expression
+    (6) statement -> . expression
+    (7) expression -> . expression PLUS expression
+    (8) expression -> . expression MINUS expression
+    (9) expression -> . expression TIMES expression
+    (10) expression -> . expression DIVIDE expression
+    (11) expression -> . MINUS expression
+    (12) expression -> . LPAREN expression RPAREN
+    (13) expression -> . NUMBER
+    (14) expression -> . NAME
+
+    WHILE           shift and go to state 2
+    IF              shift and go to state 5
+    NAME            shift and go to state 6
+    MINUS           shift and go to state 7
+    LPAREN          shift and go to state 3
+    NUMBER          shift and go to state 8
+
+    expression                     shift and go to state 4
+    statement                      shift and go to state 31
+
+state 30
+
+    (2) statement -> IF LPAREN expression RPAREN COL . statement ELIF LPAREN expression RPAREN statement
+    (3) statement -> IF LPAREN expression RPAREN COL . statement ELSE COL statement
+    (4) statement -> IF LPAREN expression RPAREN COL . statement
+    (1) statement -> . WHILE LPAREN expression RPAREN COL statement
+    (2) statement -> . IF LPAREN expression RPAREN COL statement ELIF LPAREN expression RPAREN statement
+    (3) statement -> . IF LPAREN expression RPAREN COL statement ELSE COL statement
+    (4) statement -> . IF LPAREN expression RPAREN COL statement
+    (5) statement -> . NAME EQUALS expression
+    (6) statement -> . expression
+    (7) expression -> . expression PLUS expression
+    (8) expression -> . expression MINUS expression
+    (9) expression -> . expression TIMES expression
+    (10) expression -> . expression DIVIDE expression
+    (11) expression -> . MINUS expression
+    (12) expression -> . LPAREN expression RPAREN
+    (13) expression -> . NUMBER
+    (14) expression -> . NAME
+
+    WHILE           shift and go to state 2
+    IF              shift and go to state 5
+    NAME            shift and go to state 6
+    MINUS           shift and go to state 7
+    LPAREN          shift and go to state 3
+    NUMBER          shift and go to state 8
+
+    expression                     shift and go to state 4
+    statement                      shift and go to state 32
+
+state 31
+
+    (1) statement -> WHILE LPAREN expression RPAREN COL statement .
+
+    $end            reduce using rule 1 (statement -> WHILE LPAREN expression RPAREN COL statement .)
+    ELIF            reduce using rule 1 (statement -> WHILE LPAREN expression RPAREN COL statement .)
+    ELSE            reduce using rule 1 (statement -> WHILE LPAREN expression RPAREN COL statement .)
+
+
+state 32
+
+    (2) statement -> IF LPAREN expression RPAREN COL statement . ELIF LPAREN expression RPAREN statement
+    (3) statement -> IF LPAREN expression RPAREN COL statement . ELSE COL statement
+    (4) statement -> IF LPAREN expression RPAREN COL statement .
+
+  ! shift/reduce conflict for ELIF resolved as shift
+  ! shift/reduce conflict for ELSE resolved as shift
+    ELIF            shift and go to state 33
+    ELSE            shift and go to state 34
+    $end            reduce using rule 4 (statement -> IF LPAREN expression RPAREN COL statement .)
+
+  ! ELIF            [ reduce using rule 4 (statement -> IF LPAREN expression RPAREN COL statement .) ]
+  ! ELSE            [ reduce using rule 4 (statement -> IF LPAREN expression RPAREN COL statement .) ]
+
+
+state 33
+
+    (2) statement -> IF LPAREN expression RPAREN COL statement ELIF . LPAREN expression RPAREN statement
+
+    LPAREN          shift and go to state 35
+
+
+state 34
+
+    (3) statement -> IF LPAREN expression RPAREN COL statement ELSE . COL statement
+
+    COL             shift and go to state 36
+
+
+state 35
+
+    (2) statement -> IF LPAREN expression RPAREN COL statement ELIF LPAREN . expression RPAREN statement
+    (7) expression -> . expression PLUS expression
+    (8) expression -> . expression MINUS expression
+    (9) expression -> . expression TIMES expression
+    (10) expression -> . expression DIVIDE expression
+    (11) expression -> . MINUS expression
+    (12) expression -> . LPAREN expression RPAREN
+    (13) expression -> . NUMBER
+    (14) expression -> . NAME
+
+    MINUS           shift and go to state 7
+    LPAREN          shift and go to state 3
+    NUMBER          shift and go to state 8
+    NAME            shift and go to state 11
+
+    expression                     shift and go to state 37
+
+state 36
+
+    (3) statement -> IF LPAREN expression RPAREN COL statement ELSE COL . statement
+    (1) statement -> . WHILE LPAREN expression RPAREN COL statement
+    (2) statement -> . IF LPAREN expression RPAREN COL statement ELIF LPAREN expression RPAREN statement
+    (3) statement -> . IF LPAREN expression RPAREN COL statement ELSE COL statement
+    (4) statement -> . IF LPAREN expression RPAREN COL statement
+    (5) statement -> . NAME EQUALS expression
+    (6) statement -> . expression
+    (7) expression -> . expression PLUS expression
+    (8) expression -> . expression MINUS expression
+    (9) expression -> . expression TIMES expression
+    (10) expression -> . expression DIVIDE expression
+    (11) expression -> . MINUS expression
+    (12) expression -> . LPAREN expression RPAREN
+    (13) expression -> . NUMBER
+    (14) expression -> . NAME
+
+    WHILE           shift and go to state 2
+    IF              shift and go to state 5
+    NAME            shift and go to state 6
+    MINUS           shift and go to state 7
+    LPAREN          shift and go to state 3
+    NUMBER          shift and go to state 8
+
+    expression                     shift and go to state 4
+    statement                      shift and go to state 38
+
+state 37
+
+    (2) statement -> IF LPAREN expression RPAREN COL statement ELIF LPAREN expression . RPAREN statement
+    (7) expression -> expression . PLUS expression
+    (8) expression -> expression . MINUS expression
+    (9) expression -> expression . TIMES expression
+    (10) expression -> expression . DIVIDE expression
+
+    RPAREN          shift and go to state 39
+    PLUS            shift and go to state 12
+    MINUS           shift and go to state 13
+    TIMES           shift and go to state 14
+    DIVIDE          shift and go to state 15
+
+
+state 38
+
+    (3) statement -> IF LPAREN expression RPAREN COL statement ELSE COL statement .
+
+    $end            reduce using rule 3 (statement -> IF LPAREN expression RPAREN COL statement ELSE COL statement .)
+    ELIF            reduce using rule 3 (statement -> IF LPAREN expression RPAREN COL statement ELSE COL statement .)
+    ELSE            reduce using rule 3 (statement -> IF LPAREN expression RPAREN COL statement ELSE COL statement .)
+
+
+state 39
+
+    (2) statement -> IF LPAREN expression RPAREN COL statement ELIF LPAREN expression RPAREN . statement
+    (1) statement -> . WHILE LPAREN expression RPAREN COL statement
+    (2) statement -> . IF LPAREN expression RPAREN COL statement ELIF LPAREN expression RPAREN statement
+    (3) statement -> . IF LPAREN expression RPAREN COL statement ELSE COL statement
+    (4) statement -> . IF LPAREN expression RPAREN COL statement
+    (5) statement -> . NAME EQUALS expression
+    (6) statement -> . expression
+    (7) expression -> . expression PLUS expression
+    (8) expression -> . expression MINUS expression
+    (9) expression -> . expression TIMES expression
+    (10) expression -> . expression DIVIDE expression
+    (11) expression -> . MINUS expression
+    (12) expression -> . LPAREN expression RPAREN
+    (13) expression -> . NUMBER
+    (14) expression -> . NAME
+
+    WHILE           shift and go to state 2
+    IF              shift and go to state 5
+    NAME            shift and go to state 6
+    MINUS           shift and go to state 7
+    LPAREN          shift and go to state 3
+    NUMBER          shift and go to state 8
+
+    expression                     shift and go to state 4
+    statement                      shift and go to state 40
+
+state 40
+
+    (2) statement -> IF LPAREN expression RPAREN COL statement ELIF LPAREN expression RPAREN statement .
+
+    $end            reduce using rule 2 (statement -> IF LPAREN expression RPAREN COL statement ELIF LPAREN expression RPAREN statement .)
+    ELIF            reduce using rule 2 (statement -> IF LPAREN expression RPAREN COL statement ELIF LPAREN expression RPAREN statement .)
+    ELSE            reduce using rule 2 (statement -> IF LPAREN expression RPAREN COL statement ELIF LPAREN expression RPAREN statement .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for ELIF in state 32 resolved as shift
+WARNING: shift/reduce conflict for ELSE in state 32 resolved as shift

@@ -1,0 +1,15 @@
+PLY: PARSE DEBUG START
+
+State  : 0
+Traceback (most recent call last):
+  File "/Users/deeksha/Desktop/MyPythonComiler-master/parser and icg/src/parser.py", line 1033, in <module>
+    root =  z.parse(data)
+  File "/Users/deeksha/Desktop/MyPythonComiler-master/parser and icg/src/parser.py", line 1016, in parse
+    result = self.parser.parse(lexer = self.mlexer, debug=True)
+  File "/Users/deeksha/Desktop/MyPythonComiler-master/parser and icg/src/yacc.py", line 261, in parse
+    return self.parsedebug(input,lexer,debug,tracking,tokenfunc)
+  File "/Users/deeksha/Desktop/MyPythonComiler-master/parser and icg/src/yacc.py", line 343, in parsedebug
+    lookahead = get_token()     # Get the next token
+  File "/Users/deeksha/Desktop/MyPythonComiler-master/parser and icg/src/lexer.py", line 311, in token
+    return self.token_stream.next()
+AttributeError: 'generator' object has no attribute 'next'
